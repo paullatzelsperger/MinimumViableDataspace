@@ -3,7 +3,7 @@ variable "application_sp_object_id" {
 }
 
 variable "res_prefix" {
-  default = "test"
+  default     = "test"
   description = "prefix for Azure resources to avoid resource duplication. Should be randomized"
 }
 
