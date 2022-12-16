@@ -36,7 +36,7 @@ variable "public_key_jwk_file" {
   default     = null
 }
 
-variable "private_key_pem_file"{
+variable "private_key_pem_file" {
   description = "path to the participant's PEM encoded private key"
 }
 

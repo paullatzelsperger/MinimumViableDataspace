@@ -5,4 +5,5 @@ echo "- Az CLI login"
 az login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID -o none
 echo
 
+terraform -chdir="./terraform" init -backend-config=backend.conf
 terraform -chdir=terraform destroy -auto-approve

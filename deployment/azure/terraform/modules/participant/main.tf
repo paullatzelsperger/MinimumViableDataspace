@@ -7,7 +7,7 @@ data "azurerm_client_config" "current_client" {
 }
 
 resource "random_password" "apikey" {
-  length = 16
+  length  = 16
   special = false
 }
 

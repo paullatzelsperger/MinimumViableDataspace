@@ -67,5 +67,5 @@ resource "local_file" "sdd" {
         }
     }
   EOT
-  filename="${path.module}/resources/self-description/${var.participant_name}/sdd.json"
+  filename = "${path.module}/resources/self-description/${var.participant_name}/sdd.json"
 }

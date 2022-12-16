@@ -37,6 +37,6 @@ output "api_key" {
   sensitive = true
 }
 
-output "sdd_file"{
+output "sdd_file" {
   value = local_file.sdd
 }
