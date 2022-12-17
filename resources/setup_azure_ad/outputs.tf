@@ -22,10 +22,6 @@ output "APP_CLIENT_SECRET" {
   value     = azuread_application_password.mvd-runtimes-sp-password.value
 }
 
-output "ACR_NAME" {
-  value = var.acr_name
-}
-
 output "COMMON_RESOURCE_GROUP" {
   value = var.common_resourcegroup
 }
