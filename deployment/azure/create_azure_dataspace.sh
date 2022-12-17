@@ -15,6 +15,15 @@ res_prefix="$RESOURCES_PREFIX"
 EOF
 echo
 
+echo "Create backend conf"
+echo "
+  resource_group_name   = \""${COMMON_RESOURCE_GROUP}"\"
+  storage_account_name  = \""${TERRAFORM_STATE_STORAGE_ACCOUNT}"\"
+  container_name        = \""${TERRAFORM_STATE_CONTAINER}"\"
+  key                   = \""${RESOURCES_PREFIX}"\"
+" > terraform/backend.conf
+echo
+
 echo "###############################"
 echo "### Create Dataspace Resources "
 echo "###############################"

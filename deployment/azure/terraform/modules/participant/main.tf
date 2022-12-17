@@ -6,11 +6,6 @@ data "azurerm_subscription" "current_subscription" {
 data "azurerm_client_config" "current_client" {
 }
 
-resource "random_password" "apikey" {
-  length  = 16
-  special = false
-}
-
 locals {
   api_key              = var.api_key //random_password.apikey.result
   edc_resources_folder = "/resources"
