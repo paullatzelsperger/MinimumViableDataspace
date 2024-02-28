@@ -23,7 +23,16 @@ dependencies {
     runtimeOnly(libs.edc.ih.credentials)
     runtimeOnly(libs.edc.ih.participants)
     runtimeOnly(libs.edc.ih.keypairs)
-    runtimeOnly(project(":extensions:inmem-seed"))
+
+    // SQL modules
+    runtimeOnly(libs.edc.transaction.local)
+    runtimeOnly(libs.edc.sql.pool)
+    runtimeOnly(libs.edc.ih.sql.credentialstore)
+    runtimeOnly(libs.edc.ih.sql.didstore)
+    runtimeOnly(libs.edc.ih.sql.keypairstore)
+    runtimeOnly(libs.edc.ih.sql.participantcontextstore)
+    runtimeOnly(libs.postgres)
+
 
     runtimeOnly(libs.bundles.management.api)
     implementation(libs.bundles.did)

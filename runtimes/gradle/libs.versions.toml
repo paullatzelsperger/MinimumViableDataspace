@@ -70,8 +70,17 @@ edc-ih-mgmt-verifiablecredential = { module = "org.eclipse.edc:verifiable-creden
 edc-ih-mgmt-did = { module = "org.eclipse.edc:did-mgmt-api", version.ref = "edc" }
 edc-ih-mgmt-keypairs = { module = "org.eclipse.edc:keypair-mgmt-api", version.ref = "edc" }
 
+# identityhub SQL modules
+edc-ih-sql-credentialstore = {module = "org.eclipse.edc:identity-hub-credentials-store-sql", version.ref="edc"}
+edc-ih-sql-didstore = {module = "org.eclipse.edc:identity-hub-did-store-sql", version.ref="edc"}
+edc-ih-sql-keypairstore = {module = "org.eclipse.edc:identity-hub-keypair-store-sql", version.ref="edc"}
+edc-ih-sql-participantcontextstore = {module = "org.eclipse.edc:identity-hub-participantcontext-store-sql", version.ref="edc"}
+edc-transaction-local = { module = "org.eclipse.edc:transaction-local", version.ref = "edc" }
+edc-sql-pool = { module = "org.eclipse.edc:sql-pool-apache-commons", version.ref = "edc" }
+
 # Third party libs
 nimbus-jwt = { module = "com.nimbusds:nimbus-jose-jwt", version.ref = "nimbus" }
+postgres = { module = "org.postgresql:postgresql", version.ref = "postgres" }
 
 
 [bundles]

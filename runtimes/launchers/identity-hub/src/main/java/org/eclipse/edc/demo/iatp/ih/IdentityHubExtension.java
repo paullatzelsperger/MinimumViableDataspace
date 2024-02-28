@@ -42,17 +42,24 @@ public class IdentityHubExtension implements ServiceExtension {
     @Inject
     private TypeManager typeManager;
 
+    @Inject
+    private Monitor monitor;
+
+    private String directory;
 
     @Override
     public void initialize(ServiceExtensionContext context) {
+        directory = context.getConfig().getString("edc.mvd.credentials.path");
+    }
+
+
+    @Override
+    public void start() {
         try {
-            var directory = context.getConfig().getString("edc.mvd.credentials.path");
-            seedCredentials(directory, context.getMonitor().withPrefix("DEMO"));
+            seedCredentials(directory, monitor);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        // register scope mapper
     }
 
     @Provider

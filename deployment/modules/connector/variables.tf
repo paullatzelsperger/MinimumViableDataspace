@@ -53,6 +53,7 @@ variable "ports" {
     ih-debug       = number
     ih-did         = number
     ih-management  = number
+    postgres       = number
   })
   default = {
     web            = 8080
@@ -64,6 +65,7 @@ variable "ports" {
     ih-management  = 7081
     resolution-api = 7082
     ih-did         = 7083
+    postgres       = 5432
   }
 }
 
