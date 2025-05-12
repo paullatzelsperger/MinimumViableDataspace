@@ -55,11 +55,60 @@ resource "kubernetes_deployment" "provider_aas_registry" {
               }
             }
           }
+
+          # uncomment this if automatically mapping the OPC UA NodeSets is desired
+
+          # volume_mount {
+          #   name       = "nodeset-volume"
+          #   mount_path = "/app/NodeSets"
+          # }
         }
+
+        # volume {
+        #   name = "nodeset-volume"
+        #   config_map {
+        #     name = kubernetes_config_map.provider_aas_nodeset.metadata[0].name
+        #   }
+        # }
       }
     }
   }
 }
+
+resource "kubernetes_service" "provider_aas_registry_service" {
+  metadata {
+    name      = "provider-aas-registry"
+    namespace = kubernetes_namespace.ns.metadata.0.name
+  }
+
+  spec {
+    selector = {
+      App = kubernetes_deployment.provider_aas_registry.metadata[0].labels.App
+    }
+
+    port {
+      name        = "api"
+      port        = 8080
+      target_port = 8080
+    }
+
+    type = "ClusterIP"
+  }
+}
+
+# uncomment this if automatically mapping the OPC UA NodeSets is desired
+
+# resource "kubernetes_config_map" "provider_aas_nodeset" {
+#   metadata {
+#     name      = "provider-aas-nodeset"
+#     namespace = kubernetes_namespace.ns.metadata.0.name
+#   }
+#
+#   data = {
+#     for file in fileset("${path.root}/assets/provider/NodeSets", "*") :
+#     file => file("${path.root}/assets/provider/NodeSets/${file}")
+#   }
+# }
 
 
 resource "kubernetes_secret" "provider_aas_secret" {
