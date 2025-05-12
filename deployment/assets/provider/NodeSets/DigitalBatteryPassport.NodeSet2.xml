@@ -1,0 +1,1100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-03-30T11:15:15.2438105Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
+  <NamespaceUris>
+    <Uri>http://industrialdigitaltwin.org/UA/DigitalBatteryPassport/</Uri>
+  </NamespaceUris>
+  <Models>
+    <Model ModelUri="http://industrialdigitaltwin.org/UA/DigitalBatteryPassport/" Version="0.4.0" PublicationDate="2025-03-30T11:15:15Z"/>
+  </Models>
+  <UAObject NodeId="ns=1;i=1" BrowseName="Asset Admin Shells" ParentNodeId="i=85">
+    <DisplayName>Asset Admin Shells</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=4</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=4" BrowseName="DigitalBatteryPassport" ParentNodeId="ns=1;i=1">
+    <DisplayName>DigitalBatteryPassport</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=5</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=1</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=5" BrowseName="1:https://example.com/BatteryAsset123" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=4" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">https://example.com/BatteryAsset123</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd" />
+    </Value>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=2" BrowseName="Submodels" ParentNodeId="i=85">
+    <DisplayName>Submodels</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=6</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=25</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=29</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=33</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=53</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=56</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=60</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=6" BrowseName="DigitalNameplate" ParentNodeId="ns=1;i=2">
+    <DisplayName>DigitalNameplate</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=7</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=8</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=9</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=10</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=11</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=12</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=13</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=14</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=15</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=16</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=17</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=18</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=19</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=20</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=21</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=22</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=23</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=24</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=2</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=7" BrowseName="1:URIOfTheProduct" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=6" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">URIOfTheProduct</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=6</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://idlink.com/X123456789012X12345678901234567</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=8" BrowseName="1:ManufacturerName" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=6" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">ManufacturerName</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=6</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=9" BrowseName="1:ManufacturerProductDesignation" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=6" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">ManufacturerProductDesignation</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=6</Reference>
+    </References>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=10" BrowseName="ContactInformation" ParentNodeId="ns=1;i=6">
+    <DisplayName>ContactInformation</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=6</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=11" BrowseName="1:ManufacturerProductRoot" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=6" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">ManufacturerProductRoot</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=6</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=12" BrowseName="1:ManufacturerProductFamily" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=6" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">ManufacturerProductFamily</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=6</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=13" BrowseName="1:ManufacturerProductType" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=6" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">ManufacturerProductType</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=6</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=14" BrowseName="1:OrderCodeOfManufacturer" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=6" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">OrderCodeOfManufacturer</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=6</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=15" BrowseName="1:ProductArticleNumberOfManufacturer" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=6" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">ProductArticleNumberOfManufacturer</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=6</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=16" BrowseName="1:SerialNumber" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=6" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">SerialNumber</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=6</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">X123456789012X12345678901234567</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=17" BrowseName="1:YearOfConstruction" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=6" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">YearOfConstruction</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=6</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">2023</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=18" BrowseName="1:DateOfManufacture" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=6" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">DateOfManufacture</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=6</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">2023-03-07</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=19" BrowseName="1:HardwareVersion" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=6" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">HardwareVersion</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=6</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=20" BrowseName="1:FirmwareVersion" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=6" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">FirmwareVersion</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=6</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=21" BrowseName="1:SoftwareVersion" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=6" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">SoftwareVersion</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=6</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=22" BrowseName="1:CountryOfOrigin" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=6" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">CountryOfOrigin</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=6</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">DE</String>
+    </Value>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=23" BrowseName="Markings" ParentNodeId="ns=1;i=6">
+    <DisplayName>Markings</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=6</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=24" BrowseName="AssetSpecificProperties" ParentNodeId="ns=1;i=6">
+    <DisplayName>AssetSpecificProperties</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=6</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=25" BrowseName="HandoverDocumentation" ParentNodeId="ns=1;i=2">
+    <DisplayName>HandoverDocumentation</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=26</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=27</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=28</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=2</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=26" BrowseName="1:numberOfDocuments" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=25" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">numberOfDocuments</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=25</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd" />
+    </Value>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=27" BrowseName="Document" ParentNodeId="ns=1;i=25">
+    <DisplayName>Document</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=25</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=28" BrowseName="1:Entity" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=25" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">Entity</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=25</Reference>
+    </References>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=29" BrowseName="TechnicalData" ParentNodeId="ns=1;i=2">
+    <DisplayName>TechnicalData</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=30</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=31</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=32</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=2</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=30" BrowseName="GeneralInformation" ParentNodeId="ns=1;i=29">
+    <DisplayName>GeneralInformation</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=29</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=31" BrowseName="ProductClassifications" ParentNodeId="ns=1;i=29">
+    <DisplayName>ProductClassifications</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=29</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=32" BrowseName="TechnicalProperties" ParentNodeId="ns=1;i=29">
+    <DisplayName>TechnicalProperties</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=29</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=33" BrowseName="ProductConditionForBattery" ParentNodeId="ns=1;i=2">
+    <DisplayName>ProductConditionForBattery</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=34</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=35</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=36</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=37</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=38</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=39</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=40</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=41</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=42</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=43</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=44</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=45</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=46</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=47</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=48</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=49</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=50</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=51</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=52</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=2</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=34" BrowseName="1:StateOfCharge" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=33" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">StateOfCharge</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=33</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">12</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=35" BrowseName="1:NumberOfDeepDischargeEvents" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=33" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">NumberOfDeepDischargeEvents</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=33</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">10</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=36" BrowseName="1:BatteryStatus" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=33" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">BatteryStatus</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=33</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">original</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=37" BrowseName="1:StateOfCertifiedEnergy" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=33" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">StateOfCertifiedEnergy</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=33</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">10</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=38" BrowseName="1:CurrentSelfDischargingRate" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=33" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">CurrentSelfDischargingRate</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=33</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">10</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=39" BrowseName="1:EvolutionOfSelfDischargingates" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=33" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">EvolutionOfSelfDischargingates</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=33</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">10</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=40" BrowseName="1:RemainingCapacity" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=33" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">RemainingCapacity</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=33</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">10</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=41" BrowseName="1:RemainingPowerCapability" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=33" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">RemainingPowerCapability</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=33</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">10</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=42" BrowseName="1:RemainingRoundTripEnergyEfficiency " WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=33" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">RemainingRoundTripEnergyEfficiency </DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=33</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">10</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=43" BrowseName="1:InternalResistanceIncreaseOnBatteryCellLevel" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=33" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">InternalResistanceIncreaseOnBatteryCellLevel</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=33</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">10</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=44" BrowseName="1:InternalResistanceIncreaseOnBatteryPackLevel" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=33" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">InternalResistanceIncreaseOnBatteryPackLevel</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=33</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">10</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=45" BrowseName="1:NumberOfChargeAndDischargeCycles " WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=33" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">NumberOfChargeAndDischargeCycles </DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=33</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">10</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=46" BrowseName="1:EnergyThroughput" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=33" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">EnergyThroughput</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=33</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">10</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=47" BrowseName="1:CapacityThroughput" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=33" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">CapacityThroughput</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=33</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">10</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=48" BrowseName="1:TimeSpentInExtremeTemperaturesAboveBoundary" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=33" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">TimeSpentInExtremeTemperaturesAboveBoundary</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=33</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">10</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=49" BrowseName="1:TimeSpentInExtremeTemperaturesBelowBoundary" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=33" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">TimeSpentInExtremeTemperaturesBelowBoundary</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=33</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">10</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=50" BrowseName="1:TimeSpentChargingDuringExtremeTemperaturesAboveBoundary" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=33" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">TimeSpentChargingDuringExtremeTemperaturesAboveBoundary</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=33</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">10</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=51" BrowseName="1:TimeSpentChargingDuringExtremeTemperaturesBelowBoundary" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=33" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">TimeSpentChargingDuringExtremeTemperaturesBelowBoundary</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=33</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">10</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=52" BrowseName="1:InformationOnAccidents" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=33" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">InformationOnAccidents</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=33</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Some Text</String>
+    </Value>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=53" BrowseName="MaterialCompositionForBattery" ParentNodeId="ns=1;i=2">
+    <DisplayName>MaterialCompositionForBattery</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=54</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=55</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=2</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=54" BrowseName="1:Materials" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=53" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">Materials</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=53</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=55" BrowseName="1:HazardousSubstances" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=53" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">HazardousSubstances</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=53</Reference>
+    </References>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=56" BrowseName="CircularityForBattery" ParentNodeId="ns=1;i=2">
+    <DisplayName>CircularityForBattery</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=57</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=58</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=59</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=2</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=57" BrowseName="RecycledContent" ParentNodeId="ns=1;i=56">
+    <DisplayName>RecycledContent</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=56</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=58" BrowseName="1:RenewableContent" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=56" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">RenewableContent</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=56</Reference>
+    </References>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=59" BrowseName="EndOfLifeInformation" ParentNodeId="ns=1;i=56">
+    <DisplayName>EndOfLifeInformation</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=56</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=60" BrowseName="CarbonFootprint" ParentNodeId="ns=1;i=2">
+    <DisplayName>CarbonFootprint</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=61</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=2</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=61" BrowseName="1:ProductCarbonFootprints" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=60" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">ProductCarbonFootprints</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=60</Reference>
+    </References>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=3" BrowseName="Concept Descriptions" ParentNodeId="i=85">
+    <DisplayName>Concept Descriptions</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=62</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=63</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=64</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=65</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=66</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=67</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=68</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=69</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=70</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=71</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=72</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=73</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=74</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=75</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=76</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=77</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=78</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=79</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=80</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=81</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=82</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=83</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=84</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=85</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=86</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=87</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=88</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=89</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=90</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=91</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=92</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=93</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=94</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=95</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=96</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=97</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=98</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=99</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=100</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=101</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=102</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=103</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=104</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=105</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=106</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=107</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=108</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=109</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=62" BrowseName="1:ProductCondition" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">ProductCondition</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ProductCondition</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=63" BrowseName="1:StateOfCharge" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">StateOfCharge</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">StateOfCharge</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=64" BrowseName="1:BatteryStatus" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">BatteryStatus</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">BatteryStatus</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=65" BrowseName="1:StateOfCertifiedEnergy" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">StateOfCertifiedEnergy</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">StateOfCertifiedEnergy</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=66" BrowseName="1:CurrentSelfDischargingRate" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">CurrentSelfDischargingRate</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">CurrentSelfDischargingRate</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=67" BrowseName="1:EvolutionOfSelfDischargingates" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">EvolutionOfSelfDischargingates</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">EvolutionOfSelfDischargingates</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=68" BrowseName="1:RemainingCapacity" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">RemainingCapacity</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">RemainingCapacity</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=69" BrowseName="1:CapacityFade" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">CapacityFade</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">CapacityFade</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=70" BrowseName="1:RemainingPowerCapability" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">RemainingPowerCapability</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">RemainingPowerCapability</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=71" BrowseName="1:PowerCapabilityFade" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">PowerCapabilityFade</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">PowerCapabilityFade</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=72" BrowseName="1:RemainingRoundTripEnergyEfficiency " WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">RemainingRoundTripEnergyEfficiency </DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">RemainingRoundTripEnergyEfficiency </String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=73" BrowseName="1:RoundTripEnergyEfficiencyFade " WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">RoundTripEnergyEfficiencyFade </DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">RoundTripEnergyEfficiencyFade </String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=74" BrowseName="1:CurrentInternalResistanceOnBatteryCellLevel" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">CurrentInternalResistanceOnBatteryCellLevel</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">CurrentInternalResistanceOnBatteryCellLevel</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=75" BrowseName="1:InternalResistanceIncreaseOnBatteryCellLevel" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">InternalResistanceIncreaseOnBatteryCellLevel</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">InternalResistanceIncreaseOnBatteryCellLevel</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=76" BrowseName="1:CurrentInternalResistanceOnBatteryPackLevel" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">CurrentInternalResistanceOnBatteryPackLevel</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">CurrentInternalResistanceOnBatteryPackLevel</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=77" BrowseName="1:InternalResistanceIncreaseOnBatteryPackLevel" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">InternalResistanceIncreaseOnBatteryPackLevel</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">InternalResistanceIncreaseOnBatteryPackLevel</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=78" BrowseName="1:NumberOfChargeDischargeCycles" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">NumberOfChargeDischargeCycles</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">NumberOfChargeDischargeCycles</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=79" BrowseName="1:EnergyThroughput" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">EnergyThroughput</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">EnergyThroughput</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=80" BrowseName="1:CapacityThroughput" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">CapacityThroughput</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">CapacityThroughput</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=81" BrowseName="1:TimeSpentInExtremeTemperaturesAboveBoundary" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">TimeSpentInExtremeTemperaturesAboveBoundary</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">TimeSpentInExtremeTemperaturesAboveBoundary</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=82" BrowseName="1:TimeSpentInExtremeTemperaturesBelowBoundary" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">TimeSpentInExtremeTemperaturesBelowBoundary</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">TimeSpentInExtremeTemperaturesBelowBoundary</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=83" BrowseName="1:TimeSpentChargingDuringExtremeTemperaturesAboveBoundary" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">TimeSpentChargingDuringExtremeTemperaturesAboveBoundary</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">TimeSpentChargingDuringExtremeTemperaturesAboveBoundary</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=84" BrowseName="1:TimeSpentChargingDuringExtremeTemperaturesBelowBoundary" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">TimeSpentChargingDuringExtremeTemperaturesBelowBoundary</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">TimeSpentChargingDuringExtremeTemperaturesBelowBoundary</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=85" BrowseName="1:InformationOnAccidents" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">InformationOnAccidents</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">InformationOnAccidents</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=86" BrowseName="1:NumberOfDeepDischargeEvents" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">NumberOfDeepDischargeEvents</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">NumberOfDeepDischargeEvents</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=87" BrowseName="1:CellChemistry" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">CellChemistry</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">CellChemistry</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=88" BrowseName="1:Materials" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">Materials</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Materials</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=89" BrowseName="1:CathodeMaterials" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">CathodeMaterials</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">CathodeMaterials</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=90" BrowseName="1:Name" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">Name</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Name</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=91" BrowseName="1:CAS" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">CAS</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">CAS</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=92" BrowseName="1:MassFraction" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">MassFraction</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MassFraction</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=93" BrowseName="1:AnodeMaterial" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">AnodeMaterial</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">AnodeMaterial</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=94" BrowseName="1:HazardousSubstances" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">HazardousSubstances</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">HazardousSubstances</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=95" BrowseName="1:HazardClasses" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">HazardClasses</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">HazardClasses</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=96" BrowseName="1:Location" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">Location</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Location</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=97" BrowseName="1:ConcentrationRange" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">ConcentrationRange</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ConcentrationRange</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=98" BrowseName="1:PreConsumerRecycledNickelShare" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">PreConsumerRecycledNickelShare</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">PreConsumerRecycledNickelShare</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=99" BrowseName="1:PostConsumerRecycledNickelShare" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">PostConsumerRecycledNickelShare</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">PostConsumerRecycledNickelShare</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=100" BrowseName="1:PreConsumerRecycledCobaltShare" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">PreConsumerRecycledCobaltShare</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">PreConsumerRecycledCobaltShare</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=101" BrowseName="1:PostConsumerRecycledCobaltShare" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">PostConsumerRecycledCobaltShare</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">PostConsumerRecycledCobaltShare</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=102" BrowseName="1:PreConsumerRecycledLithiumShare" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">PreConsumerRecycledLithiumShare</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">PreConsumerRecycledLithiumShare</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=103" BrowseName="1:PostConsumerRecycledLithiumShare" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">PostConsumerRecycledLithiumShare</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">PostConsumerRecycledLithiumShare</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=104" BrowseName="1:PreConsumerRecycledLeadShare" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">PreConsumerRecycledLeadShare</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">PreConsumerRecycledLeadShare</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=105" BrowseName="1:PostConsumerRecycledLeadShare" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">PostConsumerRecycledLeadShare</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">PostConsumerRecycledLeadShare</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=106" BrowseName="1:EndOfLifeInformation" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">EndOfLifeInformation</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">EndOfLifeInformation</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=107" BrowseName="1:RenewableContent" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">RenewableContent</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">RenewableContent</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=108" BrowseName="1:MaterialName" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">MaterialName</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MaterialName</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=109" BrowseName="1:ContentShare" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">ContentShare</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ContentShare</String>
+    </Value>
+  </UAVariable>
+</UANodeSet>
