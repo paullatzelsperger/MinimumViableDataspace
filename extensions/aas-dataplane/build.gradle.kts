@@ -17,5 +17,5 @@ plugins {
 }
 
 dependencies {
-
+    implementation(libs.edc.bom.dataplane)
 }

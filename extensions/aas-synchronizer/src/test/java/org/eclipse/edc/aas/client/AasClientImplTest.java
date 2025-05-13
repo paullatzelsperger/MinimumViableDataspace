@@ -23,10 +23,11 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
+//todo: convert to testcontainer test using the official AAS repo image
 class AasClientImplTest {
 
     private final EdcHttpClientImpl httpClient = new EdcHttpClientImpl(new OkHttpClient(), RetryPolicy.ofDefaults(), mock());
-    private final AasClientImpl client = new AasClientImpl(httpClient, new ObjectMapper(), "http://localhost:8081/api/v3.0");
+    private final AasClientImpl client = new AasClientImpl(httpClient, new ObjectMapper(), "http://localhost:8081/api/v3.0", "admin", "pwd");
 
 
     @Test

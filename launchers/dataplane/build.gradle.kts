@@ -19,6 +19,7 @@ plugins {
 }
 
 dependencies {
+    runtimeOnly(project(":extensions:aas-dataplane"))
     runtimeOnly(libs.edc.bom.dataplane)
     runtimeOnly(libs.edc.dataplane.v2)
 
