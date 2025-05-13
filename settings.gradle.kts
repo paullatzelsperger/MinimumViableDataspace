@@ -29,6 +29,8 @@ include(":extensions:did-example-resolver")
 include(":extensions:catalog-node-resolver")
 include(":extensions:dcp-impl")
 include(":extensions:superuser-seed")
+include(":extensions:aas-dataplane")
+include(":extensions:aas-synchronizer")
 //include(":tests:performance")
 include(":tests:end2end")
 
