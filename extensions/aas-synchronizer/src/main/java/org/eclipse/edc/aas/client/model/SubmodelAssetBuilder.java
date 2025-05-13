@@ -27,6 +27,7 @@ public class SubmodelAssetBuilder {
     private static final String IDENTIFICATION = "identification";
     private static final String IDENTIFICATION_VALUE = "identification_value";
     private static final String SUBMODEL_ELEMENTS = "submodelElements";
+    private static final String DATAADDRESS_AAS_DISPLAYNAME = "displayName";
 
     public static Asset create(Submodel submodel, String aasBaseUrl) {
         var asset = Asset.Builder.newInstance()
@@ -35,6 +36,7 @@ public class SubmodelAssetBuilder {
                 .id(submodel.getId())
                 .dataAddress(DataAddress.Builder.newInstance()
                         .type(DATAADDRESS_AAS_TYPE)
+                        .property(DATAADDRESS_AAS_DISPLAYNAME, submodel.getDisplayName("en"))
                         .property(DATAADDRESS_AAS_URL, aasBaseUrl + "/submodels/" + Base64.getUrlEncoder().encodeToString(submodel.getId().getBytes()))
                         .build())
                 .property(KIND, submodel.getKind())
