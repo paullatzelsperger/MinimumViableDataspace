@@ -175,11 +175,17 @@ resource "kubernetes_config_map" "connector-config" {
     EDC_DATASOURCE_DEFAULT_URL                 = var.database.url
     EDC_DATASOURCE_DEFAULT_USER                = var.database.user
     EDC_DATASOURCE_DEFAULT_PASSWORD            = var.database.password
-    EDC_SQL_SCHEMA_AUTOCREATE                  = true
+    EDC_SQL_SCHEMA_AUTOCREATE = true
 
     # remote STS configuration
-    EDC_IAM_STS_OAUTH_TOKEN_URL           = var.sts-token-url
-    EDC_IAM_STS_OAUTH_CLIENT_ID           = var.participantId
+    EDC_IAM_STS_OAUTH_TOKEN_URL = var.sts-token-url
+    EDC_IAM_STS_OAUTH_CLIENT_ID = var.participantId
     EDC_IAM_STS_OAUTH_CLIENT_SECRET_ALIAS = "${var.participantId}-sts-client-secret"
+
+    # AAS configuration
+    MVD_AAS_SERVER_BASEURL     = var.aas-api != null ? var.aas-api.url : null
+    MVD_AAS_SERVER_USERNAME    = var.aas-api != null ? var.aas-api.user : null
+    MVD_AAS_SERVER_PASSWORD    = var.aas-api != null ? var.aas-api.password : null
+    MVD_AAS_SERVER_SYNC_PERIOD = "30"
   }
 }
