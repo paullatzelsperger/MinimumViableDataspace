@@ -15,9 +15,10 @@
 package org.eclipse.edc.aas.client;
 
 import org.eclipse.edc.aas.client.model.Submodel;
+import org.eclipse.edc.spi.result.Result;
 
 import java.util.List;
 
 public interface AasClient {
-    List<Submodel> getSubmodels();
+    Result<List<Submodel>> getSubmodels();
 }

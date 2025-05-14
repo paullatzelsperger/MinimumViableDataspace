@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.failsafe.RetryPolicy;
 import okhttp3.OkHttpClient;
 import org.eclipse.edc.http.client.EdcHttpClientImpl;
+import org.eclipse.edc.junit.assertions.AbstractResultAssert;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,7 +33,8 @@ class AasClientImplTest {
 
     @Test
     void getSubmodels() {
-        assertThat(client.getSubmodels()).hasSize(7);
+        AbstractResultAssert.assertThat(client.getSubmodels()).isSucceeded()
+                .satisfies(l -> assertThat(l).hasSize(7));
     }
 
 }

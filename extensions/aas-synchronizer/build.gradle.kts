@@ -21,4 +21,5 @@ dependencies {
     implementation("org.eclipse.edc:api-lib:0.13.0-SNAPSHOT")
     implementation("org.eclipse.edc:http-lib:0.13.0-SNAPSHOT")
     implementation("org.eclipse.edc:asset-api:0.13.0-SNAPSHOT")
+    testImplementation(libs.edc.junit)
 }
