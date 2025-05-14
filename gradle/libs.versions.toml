@@ -9,6 +9,8 @@ jakarta-json = "2.1.3"
 parsson = "1.1.6"
 postgres = "42.7.3"
 restAssured = "5.5.1"
+testcontainers = "1.21.0"
+
 
 [libraries]
 # upstream EDC dependencies
@@ -94,6 +96,7 @@ restAssured = { module = "io.rest-assured:rest-assured", version.ref = "restAssu
 jakarta-json-api = { module = "jakarta.json:jakarta.json-api", version.ref = "jakarta-json" }
 jackson-datatype-jakarta-jsonp = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jakarta-jsonp", version.ref = "jackson" }
 parsson = { module = "org.eclipse.parsson:parsson", version.ref = "parsson" }
+testcontainers-junit = { module = "org.testcontainers:junit-jupiter", version.ref = "testcontainers" }
 
 # BOM modules
 edc-bom-controlplane = { module = "org.eclipse.edc:controlplane-dcp-bom", version.ref = "edc" }
