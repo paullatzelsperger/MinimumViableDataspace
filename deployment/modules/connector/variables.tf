@@ -86,6 +86,17 @@ variable "vault-url" {
   type        = string
 }
 
+variable "aas-api" {
+  type = object({
+    url      = string
+    user     = string
+    password = string
+  })
+  description = "AAS Server API credentials"
+  nullable    = true
+  default     = null
+}
+
 variable "sts-token-url" {
   description = "Full URL of the STS token endpoint"
   type        = string
@@ -109,7 +120,7 @@ variable "useSVE" {
 }
 
 locals {
-  name                      = lower(var.humanReadableName)
+  name = lower(var.humanReadableName)
   controlplane-service-name = "${var.humanReadableName}-controlplane"
   dataplane-service-name    = "${var.humanReadableName}-dataplane"
 }
