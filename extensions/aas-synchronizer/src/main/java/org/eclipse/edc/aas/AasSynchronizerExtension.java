@@ -52,17 +52,16 @@ public class AasSynchronizerExtension implements ServiceExtension {
     private EdcHttpClient httpClient;
     @Inject
     private TypeManager typeManager;
-    @Setting(key = "mvd.aas.server.baseurl", description = "Base URL of the AAS server/repository", defaultValue = "http://localhost:5001/api/v3.0")
+    @Setting(key = "mvd.aas.server.baseurl", description = "Base URL of the AAS server/repository. Must include the host, port and API base path (usually '/api/v3.0/')", required = false)
     private String baseUrl;
-    @Setting(key = "mvd.aas.server.username", description = "Username for the AAS server", defaultValue = "admin")
+    @Setting(key = "mvd.aas.server.username", description = "Username for the AAS server", required = false)
     private String aasUsername;
-    @Setting(key = "mvd.aas.server.password", description = "Password for the AAS server", defaultValue = "pwd")
+    @Setting(key = "mvd.aas.server.password", description = "Password for the AAS server", required = false)
     private String aasPassword;
     @Setting(key = "mvd.aas.server.sync.initialDelay", description = "Initial delay for the AAS synchronization task in seconds", defaultValue = "5")
     private int initialDelay;
     @Setting(key = "mvd.aas.server.sync.period", description = "Period for the AAS synchronization task in seconds", defaultValue = "60")
     private int syncPeriod;
-
     @Setting(key = "mvd.aas.server.sync.definitionId", description = "ID of the contract definition to be used for the assets synchronized from AAS", defaultValue = "mvd:aas:sync:contractdefinition:1")
     private String contractDefinitionId;
     private Monitor monitor;
@@ -78,41 +77,53 @@ public class AasSynchronizerExtension implements ServiceExtension {
 
     @Override
     public void initialize(ServiceExtensionContext context) {
+        monitor = context.getMonitor().withPrefix(NAME);
+        if (baseUrl == null || aasUsername == null || aasPassword == null) {
+            monitor.warning("Base URL, AAS API username and AAS API password are required. This runtime will not synchronize assets from the AAS server.");
+            return;
+        }
         executor = Executors.newSingleThreadScheduledExecutor();
         aasClient = new AasClientImpl(httpClient, typeManager.getMapper(), baseUrl, aasUsername, aasPassword);
         dataAddressValidatorRegistry.registerSourceValidator("AAS", new AasDataAddressValidator(monitor));
-        monitor = context.getMonitor().withPrefix(NAME);
+
     }
 
     @Override
     public void start() {
-        executor.scheduleAtFixedRate(() -> {
-            var submodels = aasClient.getSubmodels();
-            if (submodels == null || submodels.isEmpty()) {
-                monitor.warning("No AAS submodels found");
-                return;
-            }
-            monitor.info("fetched " + submodels.size() + " submodels");
+        if (executor != null) {
+            executor.scheduleAtFixedRate(() -> {
+                var result = aasClient.getSubmodels();
+                if (result.failed()) {
+                    monitor.warning("Failed to synchronize assets from the AAS server: %s".formatted(result.getFailureDetail()));
+                    return;
+                }
+                var submodels = result.getContent();
+                if (submodels == null || submodels.isEmpty()) {
+                    monitor.warning("No AAS submodels found");
+                    return;
+                }
+                monitor.debug("fetched " + submodels.size() + " submodels");
 
 
-            var assets = submodels.stream().map((Submodel submodel) -> SubmodelAssetBuilder.create(submodel, baseUrl)).toList();
-            var any = assets.stream()
-                    .map(this::upsert)
-                    .filter(ServiceResult::failed)
-                    .findAny();
+                var assets = submodels.stream().map((Submodel submodel) -> SubmodelAssetBuilder.create(submodel, baseUrl)).toList();
+                var any = assets.stream()
+                        .map(this::upsert)
+                        .filter(ServiceResult::failed)
+                        .findAny();
 
-            if (any.isPresent()) {
-                monitor.severe("failed to create asset: " + any.get().getFailureMessages());
-            } else {
-                monitor.info("assets synchronized successfully");
+                if (any.isPresent()) {
+                    monitor.severe("failed to create asset: " + any.get().getFailureMessages());
+                } else {
+                    monitor.debug("assets synchronized successfully");
 
-                // upsert contract definition
-                var assetIds = assets.stream().map(Asset::getId).toList();
-                upsertContractDefinition(assetIds, contractDefinitionId)
-                        .onFailure(f -> monitor.severe("failed to create contract definition: " + f.getFailureDetail()))
-                        .onSuccess(v -> monitor.info("contract definition synchronized successfully"));
-            }
-        }, initialDelay, syncPeriod, SECONDS);
+                    // upsert contract definition
+                    var assetIds = assets.stream().map(Asset::getId).toList();
+                    upsertContractDefinition(assetIds, contractDefinitionId)
+                            .onFailure(f -> monitor.severe("failed to create contract definition: " + f.getFailureDetail()))
+                            .onSuccess(v -> monitor.debug("contract definition synchronized successfully"));
+                }
+            }, initialDelay, syncPeriod, SECONDS);
+        }
     }
 
     private ServiceResult<Void> upsertContractDefinition(List<String> assetIds, String contractDefinitionId) {

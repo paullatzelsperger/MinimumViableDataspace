@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-public record SubmodelResponse(List<Submodel> result,
+public record SubmodelResponse(@JsonProperty("result") List<Submodel> submodels,
                                @JsonProperty("paging_metadata") PagingMetadata pagingMetadata) {
 
 }

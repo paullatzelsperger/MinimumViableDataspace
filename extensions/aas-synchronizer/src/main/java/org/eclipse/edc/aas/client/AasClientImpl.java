@@ -20,6 +20,7 @@ import okhttp3.Request;
 import org.eclipse.edc.aas.client.model.Submodel;
 import org.eclipse.edc.aas.client.model.SubmodelResponse;
 import org.eclipse.edc.http.spi.EdcHttpClient;
+import org.eclipse.edc.spi.result.Result;
 
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class AasClientImpl implements AasClient {
     }
 
     @Override
-    public List<Submodel> getSubmodels() {
+    public Result<List<Submodel>> getSubmodels() {
         var request = new Request.Builder()
                 .header("Authorization", Credentials.basic(username, password))
                 .url(baseUrl + "/submodels")
@@ -50,11 +51,12 @@ public class AasClientImpl implements AasClient {
 
         try (var response = httpClient.execute(request)) {
             if (!response.isSuccessful()) {
-                throw new RuntimeException("Failed to fetch submodels: " + response.message());
+                return Result.failure("Failed to fetch submodels: %s (code '%d')".formatted(response.message(), response.code()));
             }
-            return objectMapper.readValue(requireNonNull(response.body()).byteStream(), SubmodelResponse.class).result();
+            var res = objectMapper.readValue(requireNonNull(response.body()).byteStream(), SubmodelResponse.class);
+            return Result.success(res.submodels());
         } catch (Exception e) {
-            throw new RuntimeException("Error fetching submodels", e);
+            return Result.failure("Error executing AAS HTTP request: " + e.getMessage());
         }
 
     }

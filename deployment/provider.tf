@@ -29,6 +29,11 @@ module "provider-qna-connector" {
   vault-url     = "http://provider-vault:8200"
   sts-token-url = "${module.provider-identityhub.sts-token-url}/token"
   useSVE        = var.useSVE
+  aas-api = {
+    url      = "http://${kubernetes_service.provider_aas_registry_service.metadata.0.name}:8080/api/v3.0"
+    password = kubernetes_secret.provider_aas_secret.data.ServicePassword
+    user     = "admin"
+  }
 }
 
 # Second provider connector "provider-manufacturing"
@@ -45,12 +50,17 @@ module "provider-manufacturing-connector" {
   vault-url     = "http://provider-vault:8200"
   sts-token-url = "${module.provider-identityhub.sts-token-url}/token"
   useSVE        = var.useSVE
+  aas-api = {
+    url      = "http://${kubernetes_service.provider_aas_registry_service.metadata.0.name}:8080/api/v3.0"
+    password = kubernetes_secret.provider_aas_secret.data.ServicePassword
+    user     = "admin"
+  }
 }
 
 module "provider-identityhub" {
-  depends_on        = [module.provider-vault]
-  source            = "./modules/identity-hub"
-  credentials-dir   = dirname("./assets/credentials/k8s/provider/")
+  depends_on = [module.provider-vault]
+  source        = "./modules/identity-hub"
+  credentials-dir = dirname("./assets/credentials/k8s/provider/")
   humanReadableName = "provider-identityhub"
   # must be named "provider-identityhub" until we regenerate DIDs and credentials
   participantId = var.provider-did
@@ -91,7 +101,7 @@ module "provider-vault" {
 
 # Postgres database for the consumer
 module "provider-postgres" {
-  depends_on    = [kubernetes_config_map.postgres-initdb-config-cs]
+  depends_on = [kubernetes_config_map.postgres-initdb-config-cs]
   source        = "./modules/postgres"
   instance-name = "provider"
   init-sql-configs = [
