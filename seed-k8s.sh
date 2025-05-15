@@ -21,7 +21,7 @@
 echo
 echo
 echo "Seed the NodeSet file to the AAS Server"
-curl -si -X POST http://localhost:8080/Browser/LocalFileOpen \
+curl -si -X POST http://localhost/aas/Browser/LocalFileOpen \
   -F "autodownloadreferences=false" \
   -F "files=@${PWD}/deployment/assets/provider/NodeSets/DigitalBatteryPassport.NodeSet2.xml;type=text/xml"
 
