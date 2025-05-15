@@ -14,6 +14,7 @@
 
 package org.eclipse.edc.aas;
 
+import okhttp3.Credentials;
 import org.eclipse.edc.aas.client.AasClient;
 import org.eclipse.edc.aas.client.AasClientImpl;
 import org.eclipse.edc.aas.client.model.Submodel;
@@ -30,6 +31,7 @@ import org.eclipse.edc.runtime.metamodel.annotation.Setting;
 import org.eclipse.edc.spi.monitor.Monitor;
 import org.eclipse.edc.spi.query.Criterion;
 import org.eclipse.edc.spi.result.ServiceResult;
+import org.eclipse.edc.spi.security.Vault;
 import org.eclipse.edc.spi.system.ServiceExtension;
 import org.eclipse.edc.spi.system.ServiceExtensionContext;
 import org.eclipse.edc.spi.types.TypeManager;
@@ -46,6 +48,7 @@ import static org.eclipse.edc.spi.constants.CoreConstants.EDC_NAMESPACE;
 @Extension(value = NAME)
 public class AasSynchronizerExtension implements ServiceExtension {
     public static final String NAME = "AAS Synchronizer Extension";
+    public static final String MVD_AAS_BASIC_AUTH_ALIAS = "mvd-aas-server-basicauth-alias";
     private ScheduledExecutorService executor;
     private AasClient aasClient;
     @Inject
@@ -75,6 +78,9 @@ public class AasSynchronizerExtension implements ServiceExtension {
     @Inject
     private DataAddressValidatorRegistry dataAddressValidatorRegistry;
 
+    @Inject
+    private Vault vault;
+
     @Override
     public void initialize(ServiceExtensionContext context) {
         monitor = context.getMonitor().withPrefix(NAME);
@@ -82,8 +88,12 @@ public class AasSynchronizerExtension implements ServiceExtension {
             monitor.warning("Base URL, AAS API username and AAS API password are required. This runtime will not synchronize assets from the AAS server.");
             return;
         }
+
+        // store basic auth credentials for AAS Server in vault
+        vault.storeSecret(MVD_AAS_BASIC_AUTH_ALIAS, Credentials.basic(aasUsername, aasPassword));
+
         executor = Executors.newSingleThreadScheduledExecutor();
-        aasClient = new AasClientImpl(httpClient, typeManager.getMapper(), baseUrl, aasUsername, aasPassword);
+        aasClient = new AasClientImpl(httpClient, typeManager.getMapper(), baseUrl, vault);
         dataAddressValidatorRegistry.registerSourceValidator("AAS", new AasDataAddressValidator(monitor));
 
     }

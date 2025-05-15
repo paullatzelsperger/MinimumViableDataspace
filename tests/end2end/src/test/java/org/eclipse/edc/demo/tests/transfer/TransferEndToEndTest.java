@@ -37,7 +37,10 @@ import org.eclipse.edc.transform.transformer.edc.to.JsonValueToGenericTypeTransf
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.Base64;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static io.restassured.RestAssured.given;
@@ -98,8 +101,9 @@ public class TransferEndToEndTest {
     }
 
     @DisplayName("Tests a successful End-to-End contract negotiation and data transfer")
-    @Test
-    void transferData_hasPermission_shouldTransferData() {
+    @ParameterizedTest(name = "Asset ID = {0}")
+    @ValueSource(strings = {"nsu=http://industrialdigitaltwin.org/UA/DigitalBatteryPassport/;i=33", "asset-1"})
+    void transferData_hasPermission_shouldTransferData(String assetId) {
         System.out.println("Waiting for Provider dataplane to come online");
         // wait until provider's dataplane is available
         await().atMost(TEST_TIMEOUT_DURATION)
@@ -143,7 +147,7 @@ public class TransferEndToEndTest {
                                 .map(ds -> (Catalog) ds)
                                 .filter(sc -> sc.getDataServices().stream().anyMatch(dataService -> dataService.getEndpointUrl().contains("provider-qna"))) // filter for assets from the Q&A Provider
                                 .flatMap(c -> c.getDatasets().stream())
-                                .filter(dataset -> dataset.getId().equals("asset-1")) // filter for the asset we're allowed to negotiate
+                                .filter(dataset -> dataset.getId().equals(assetId)) // filter for the asset we're allowed to negotiate
                                 .map(Dataset::getOffers)
                                 .map(offers -> offers.keySet().iterator().next())
                                 .findFirst()
@@ -240,9 +244,15 @@ public class TransferEndToEndTest {
                 });
 
         //download exemplary JSON data from public endpoint
+        var url = PROVIDER_PUBLIC_URL + "/api/public";
+
+        //fixme: only append asset ID for AAS assets. this should be handled by individual data planes
+        if (assetId.startsWith("nsu=")) {
+            url += "/" + Base64.getUrlEncoder().encodeToString(assetId.getBytes());
+        }
         var response = given()
                 .header("Authorization", token.get())
-                .get(PROVIDER_PUBLIC_URL + "/api/public")
+                .get(url)
                 .then()
                 .log().ifError()
                 .statusCode(200)

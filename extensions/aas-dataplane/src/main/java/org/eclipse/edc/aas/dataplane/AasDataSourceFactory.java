@@ -20,20 +20,24 @@ import org.eclipse.edc.http.spi.EdcHttpClient;
 import org.eclipse.edc.spi.EdcException;
 import org.eclipse.edc.spi.monitor.Monitor;
 import org.eclipse.edc.spi.result.Result;
+import org.eclipse.edc.spi.security.Vault;
 import org.eclipse.edc.spi.types.domain.transfer.DataFlowStartMessage;
 import org.eclipse.edc.validator.spi.DataAddressValidatorRegistry;
 import org.eclipse.edc.validator.spi.ValidationResult;
 import org.jetbrains.annotations.NotNull;
 
 public class AasDataSourceFactory implements DataSourceFactory {
+    private static final String MVD_AAS_BASIC_AUTH_ALIAS = "mvd-aas-server-basicauth-alias";
     private final DataAddressValidatorRegistry dataAddressValidatorRegistry;
     private final EdcHttpClient edcHttpClient;
     private final Monitor monitor;
+    private final Vault vault;
 
-    public AasDataSourceFactory(DataAddressValidatorRegistry dataAddressValidatorRegistry, EdcHttpClient edcHttpClient, Monitor monitor) {
+    public AasDataSourceFactory(DataAddressValidatorRegistry dataAddressValidatorRegistry, EdcHttpClient edcHttpClient, Monitor monitor, Vault vault) {
         this.dataAddressValidatorRegistry = dataAddressValidatorRegistry;
         this.edcHttpClient = edcHttpClient;
         this.monitor = monitor;
+        this.vault = vault;
     }
 
     @Override
@@ -53,7 +57,10 @@ public class AasDataSourceFactory implements DataSourceFactory {
                 source.getStringProperty("id"),
                 source.getStringProperty("submodelElement"),
                 source.getStringProperty("displayName"),
-                source.getStringProperty("aas_url"), monitor);
+                source.getStringProperty("aas_url"),
+                monitor,
+                () -> vault.resolveSecret(MVD_AAS_BASIC_AUTH_ALIAS)
+        );
     }
 
     @Override
