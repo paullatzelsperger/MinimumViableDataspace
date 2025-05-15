@@ -26,14 +26,17 @@ import java.util.Map;
 public class AasAccessControlService implements DataPlaneAccessControlService {
     @Override
     public Result<Void> checkAccess(ClaimToken claimToken, DataAddress sourceDataAddress, Map<String, Object> requestData, Map<String, Object> additionalData) {
-
         if (requestData.get("path") instanceof UriInfo uriInfo) {
             var path = uriInfo.getPathSegments();
             if (path.isEmpty()) {
-                return Result.failure("Access Denied - public API request must have the base64-encoded AAS ID in the path");
+                return Result.failure("Access Denied - public API request must have the base64-encoded Asset ID in the URL path");
             }
 
-            var aasId = new String(Base64.getUrlDecoder().decode(path.get(0).getPath()));
+            var assetId = new String(Base64.getUrlDecoder().decode(path.get(0).getPath()));
+
+            if (!assetId.startsWith("nsu=http://industrialdigitaltwin.org")) { //fixme: dirty hack!! should be solved by individual dataplanes
+                return Result.success();
+            }
 
             if (path.size() > 1) {
                 var submodelName = path.get(1).getPath();
@@ -41,7 +44,7 @@ public class AasAccessControlService implements DataPlaneAccessControlService {
                 sourceDataAddress.getProperties().put("submodelElement", submodelName);
             }
 
-            return aasId.equals(sourceDataAddress.getStringProperty("id")) ? Result.success() : Result.failure("Access Denied");
+            return assetId.equals(sourceDataAddress.getStringProperty("id")) ? Result.success() : Result.failure("Access Denied - URL path does not match the 'id' property of the data address");
         }
         return Result.failure("Access Denied - public API request must have the base64-encoded AAS ID in the path");
     }

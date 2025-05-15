@@ -15,7 +15,6 @@
 package org.eclipse.edc.aas.dataplane;
 
 
-import okhttp3.Credentials;
 import okhttp3.Request;
 import okhttp3.ResponseBody;
 import org.eclipse.edc.connector.dataplane.http.pipeline.HttpPart;
@@ -31,9 +30,11 @@ import java.io.InputStream;
 import java.util.Base64;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import static java.lang.String.format;
+import static java.util.Objects.requireNonNull;
 import static org.eclipse.edc.connector.dataplane.spi.pipeline.StreamResult.error;
 
 public final class AasDataSource implements DataSource {
@@ -45,14 +46,16 @@ public final class AasDataSource implements DataSource {
     private final String baseUrl;
     private final AtomicReference<ResponseBodyStream> responseBodyStream = new AtomicReference<>();
     private final Monitor monitor;
+    private final Supplier<String> basicAuthProvider;
 
-    public AasDataSource(EdcHttpClient httpClient, String id, @Nullable String submodelElement, String name, String baseUrl, Monitor monitor) {
+    public AasDataSource(EdcHttpClient httpClient, String id, @Nullable String submodelElement, String name, String baseUrl, Monitor monitor, Supplier<String> basicAuthProvider) {
         this.httpClient = httpClient;
         this.id = id;
         this.submodelElement = submodelElement;
         this.name = name;
         this.baseUrl = baseUrl;
         this.monitor = monitor;
+        this.basicAuthProvider = basicAuthProvider;
     }
 
     @Override
@@ -63,8 +66,10 @@ public final class AasDataSource implements DataSource {
         if (submodelElement != null) {
             submodelPath += "/submodel-elements/" + submodelElement;
         }
+
+        var basicAuth = requireNonNull(basicAuthProvider.get(), "Basic Auth provider returned no value. Please provide Basic Auth credentials for the AAS Server");
         var request = new Request.Builder()
-                .addHeader("Authorization", Credentials.basic("admin", "pwd"))
+                .addHeader("Authorization", basicAuth)
                 .url(baseUrl + "/" + submodelPath)
                 .get()
                 .build();
