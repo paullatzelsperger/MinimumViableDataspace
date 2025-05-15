@@ -17,6 +17,14 @@
 ## This script must be executed when running the dataspace from IntelliJ. Neglecting to do that will render the connectors
 ## inoperable!
 
+## Seed the NodeSet file to the AAS Server
+echo
+echo
+echo "Seed the NodeSet file to the AAS Server"
+curl -si -X POST http://localhost:5001/Browser/LocalFileOpen \
+  -F "autodownloadreferences=false" \
+  -F "files=@${PWD}/deployment/assets/provider/NodeSets/DigitalBatteryPassport.NodeSet2.xml;type=text/xml"
+
 ## Seed asset/policy/contract-def data to both "provider-qna" and "provider-manufacturing"
 for url in 'http://127.0.0.1:8191' 'http://127.0.0.1:8291'
 do

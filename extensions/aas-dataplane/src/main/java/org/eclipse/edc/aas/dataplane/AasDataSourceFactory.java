@@ -49,7 +49,11 @@ public class AasDataSourceFactory implements DataSourceFactory {
         }
 
         var source = dataFlowStartMessage.getSourceDataAddress();
-        return new AasDataSource(edcHttpClient, source.getStringProperty("displayName"), source.getStringProperty("aas_url"), monitor);
+        return new AasDataSource(edcHttpClient,
+                source.getStringProperty("id"),
+                source.getStringProperty("submodelElement"),
+                source.getStringProperty("displayName"),
+                source.getStringProperty("aas_url"), monitor);
     }
 
     @Override
