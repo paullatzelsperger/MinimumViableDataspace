@@ -16,6 +16,7 @@ package org.eclipse.edc.aas.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.failsafe.RetryPolicy;
+import okhttp3.Credentials;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -23,6 +24,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import org.eclipse.edc.http.client.EdcHttpClientImpl;
 import org.eclipse.edc.junit.assertions.AbstractResultAssert;
+import org.eclipse.edc.spi.security.Vault;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.GenericContainer;
@@ -34,29 +36,33 @@ import java.io.IOException;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.eclipse.edc.aas.AasSynchronizerExtension.MVD_AAS_BASIC_AUTH_ALIAS;
 import static org.eclipse.edc.junit.testfixtures.TestUtils.getFileFromResourceName;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 //todo: convert to testcontainer test using the official AAS repo image
 @Testcontainers
 class AasClientImplTest {
 
+    private static final String PASSWORD = "pwd";
     @Container
     private static final GenericContainer<?> CONTAINER = new GenericContainer<>("ghcr.io/digitaltwinconsortium/aas-repository:nightly")
             .withExposedPorts(8080)
-            .withEnv(Map.of("ServicePassword", "pwd"))
+            .withEnv(Map.of("ServicePassword", PASSWORD))
             .waitingFor(new LogMessageWaitStrategy()
                     .withRegEx(".*OPC UA server started.*")
                     .withTimes(1)
                     .withStartupTimeout(java.time.Duration.ofSeconds(20)));
-
     private final EdcHttpClientImpl httpClient = new EdcHttpClientImpl(new OkHttpClient(), RetryPolicy.ofDefaults(), mock());
+    private final Vault vault = mock();
     private AasClientImpl client;
 
     @BeforeEach
     void setup() {
+        when(vault.resolveSecret(MVD_AAS_BASIC_AUTH_ALIAS)).thenReturn(Credentials.basic("admin", PASSWORD));
         var port = CONTAINER.getMappedPort(8080);
-        client = new AasClientImpl(httpClient, new ObjectMapper(), "http://localhost:%s/api/v3.0".formatted(port), "admin", "pwd");
+        client = new AasClientImpl(httpClient, new ObjectMapper(), "http://localhost:%s/api/v3.0".formatted(port), vault);
 
         // upload the Digital Battery Passport nodeset. Mapping a file to the container does not work due to file permissions
         var file = getFileFromResourceName("DigitalBatteryPassport.NodeSet2.xml");

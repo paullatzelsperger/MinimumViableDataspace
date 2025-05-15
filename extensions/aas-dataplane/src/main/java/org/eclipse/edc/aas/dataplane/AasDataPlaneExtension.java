@@ -20,6 +20,7 @@ import org.eclipse.edc.http.spi.EdcHttpClient;
 import org.eclipse.edc.runtime.metamodel.annotation.Extension;
 import org.eclipse.edc.runtime.metamodel.annotation.Inject;
 import org.eclipse.edc.runtime.metamodel.annotation.Provider;
+import org.eclipse.edc.spi.security.Vault;
 import org.eclipse.edc.spi.system.ServiceExtension;
 import org.eclipse.edc.spi.system.ServiceExtensionContext;
 import org.eclipse.edc.validator.spi.DataAddressValidatorRegistry;
@@ -36,10 +37,12 @@ public class AasDataPlaneExtension implements ServiceExtension {
     private DataAddressValidatorRegistry validatorRegistry;
     @Inject
     private EdcHttpClient edcHttpClient;
+    @Inject
+    private Vault vault;
 
     @Override
     public void initialize(ServiceExtensionContext context) {
-        var sourceFactory = new AasDataSourceFactory(validatorRegistry, edcHttpClient, context.getMonitor());
+        var sourceFactory = new AasDataSourceFactory(validatorRegistry, edcHttpClient, context.getMonitor(), vault);
         pipelineService.registerFactory(sourceFactory);
     }
 
