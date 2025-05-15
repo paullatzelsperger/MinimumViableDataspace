@@ -24,9 +24,11 @@ import org.eclipse.edc.connector.dataplane.spi.pipeline.StreamResult;
 import org.eclipse.edc.http.spi.EdcHttpClient;
 import org.eclipse.edc.spi.EdcException;
 import org.eclipse.edc.spi.monitor.Monitor;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Base64;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Stream;
@@ -36,13 +38,18 @@ import static org.eclipse.edc.connector.dataplane.spi.pipeline.StreamResult.erro
 
 public final class AasDataSource implements DataSource {
     private final EdcHttpClient httpClient;
+    private final String id;
+    @Nullable
+    private final String submodelElement;
     private final String name;
     private final String baseUrl;
     private final AtomicReference<ResponseBodyStream> responseBodyStream = new AtomicReference<>();
     private final Monitor monitor;
 
-    public AasDataSource(EdcHttpClient httpClient, String name, String baseUrl, Monitor monitor) {
+    public AasDataSource(EdcHttpClient httpClient, String id, @Nullable String submodelElement, String name, String baseUrl, Monitor monitor) {
         this.httpClient = httpClient;
+        this.id = id;
+        this.submodelElement = submodelElement;
         this.name = name;
         this.baseUrl = baseUrl;
         this.monitor = monitor;
@@ -51,9 +58,14 @@ public final class AasDataSource implements DataSource {
     @Override
     public StreamResult<Stream<Part>> openPartStream() {
 
+        var submodelPath = Base64.getUrlEncoder().encodeToString(id.getBytes());
+
+        if (submodelElement != null) {
+            submodelPath += "/submodel-elements/" + submodelElement;
+        }
         var request = new Request.Builder()
                 .addHeader("Authorization", Credentials.basic("admin", "pwd"))
-                .url(baseUrl)
+                .url(baseUrl + "/" + submodelPath)
                 .get()
                 .build();
 

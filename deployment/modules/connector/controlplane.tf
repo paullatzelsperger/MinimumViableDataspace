@@ -183,8 +183,8 @@ resource "kubernetes_config_map" "connector-config" {
     EDC_IAM_STS_OAUTH_CLIENT_SECRET_ALIAS = "${var.participantId}-sts-client-secret"
 
     # AAS configuration
-    MVD_AAS_SERVER_BASEURL     = var.aas-api != null ? var.aas-api.url : null
-    MVD_AAS_SERVER_USERNAME    = var.aas-api != null ? var.aas-api.user : null
+    MVD_AAS_SERVER_URL         = var.aas-api != null ? var.aas-api.url : null
+    MVD_AAS_SERVER_USER        = var.aas-api != null ? var.aas-api.user : null
     MVD_AAS_SERVER_PASSWORD    = var.aas-api != null ? var.aas-api.password : null
     MVD_AAS_SERVER_SYNC_PERIOD = "30"
   }

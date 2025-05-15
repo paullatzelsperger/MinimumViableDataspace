@@ -14,10 +14,12 @@
 
 package org.eclipse.edc.aas.dataplane;
 
+import org.eclipse.edc.connector.dataplane.spi.iam.DataPlaneAccessControlService;
 import org.eclipse.edc.connector.dataplane.spi.pipeline.PipelineService;
 import org.eclipse.edc.http.spi.EdcHttpClient;
 import org.eclipse.edc.runtime.metamodel.annotation.Extension;
 import org.eclipse.edc.runtime.metamodel.annotation.Inject;
+import org.eclipse.edc.runtime.metamodel.annotation.Provider;
 import org.eclipse.edc.spi.system.ServiceExtension;
 import org.eclipse.edc.spi.system.ServiceExtensionContext;
 import org.eclipse.edc.validator.spi.DataAddressValidatorRegistry;
@@ -39,5 +41,10 @@ public class AasDataPlaneExtension implements ServiceExtension {
     public void initialize(ServiceExtensionContext context) {
         var sourceFactory = new AasDataSourceFactory(validatorRegistry, edcHttpClient, context.getMonitor());
         pipelineService.registerFactory(sourceFactory);
+    }
+
+    @Provider
+    public DataPlaneAccessControlService createAasAuthorizationService() {
+        return new AasAccessControlService();
     }
 }

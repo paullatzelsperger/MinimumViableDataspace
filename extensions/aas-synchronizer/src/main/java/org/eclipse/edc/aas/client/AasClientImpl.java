@@ -58,6 +58,6 @@ public class AasClientImpl implements AasClient {
         } catch (Exception e) {
             return Result.failure("Error executing AAS HTTP request: " + e.getMessage());
         }
-
     }
+
 }

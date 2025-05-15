@@ -14,8 +14,17 @@
 #
 #
 
-## This script must be executed when running the dataspace from IntelliJ. Neglecting to do that will render the connectors
+## This script must be executed when running the dataspace from Kubernetes. Neglecting to do that will render the connectors
 ## inoperable!
+
+## Seed the NodeSet file to the AAS Server
+echo
+echo
+echo "Seed the NodeSet file to the AAS Server"
+curl -si -X POST http://localhost:8080/Browser/LocalFileOpen \
+  -F "autodownloadreferences=false" \
+  -F "files=@${PWD}/deployment/assets/provider/NodeSets/DigitalBatteryPassport.NodeSet2.xml;type=text/xml"
+
 
 ## Seed application DATA to both connectors
 echo
