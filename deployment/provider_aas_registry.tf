@@ -122,3 +122,39 @@ resource "kubernetes_secret" "provider_aas_secret" {
   }
   type = "Opaque"
 }
+
+# this ingress exposes the AAS Repository API to the outside world. Most notably, we'll use it to seed the node set file
+# in the seed script.
+resource "kubernetes_ingress_v1" "provider_aas_ingress" {
+  metadata {
+    name      = "provider-aas-ingress"
+    namespace = kubernetes_namespace.ns.metadata[0].name
+    annotations = {
+      # Use NGINX ingress controller (adjust if using a different one)
+      "nginx.ingress.kubernetes.io/rewrite-target" = "/$2"
+    }
+  }
+
+  spec {
+    ingress_class_name = "nginx"  # or "public" / "nginx-internal" based on your controller
+
+    rule {
+      host = "localhost"
+
+      http {
+        path {
+          path = "/aas(/|$)(.*)"
+
+          backend {
+            service {
+              name = kubernetes_service.provider_aas_registry_service.metadata[0].name
+              port {
+                number = 8080
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
