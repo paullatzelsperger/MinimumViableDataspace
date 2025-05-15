@@ -52,9 +52,9 @@ public class AasSynchronizerExtension implements ServiceExtension {
     private EdcHttpClient httpClient;
     @Inject
     private TypeManager typeManager;
-    @Setting(key = "mvd.aas.server.baseurl", description = "Base URL of the AAS server/repository. Must include the host, port and API base path (usually '/api/v3.0/')", required = false)
+    @Setting(key = "mvd.aas.server.url", description = "Base URL of the AAS server/repository. Must include the host, port and API base path (usually '/api/v3.0/')", required = false)
     private String baseUrl;
-    @Setting(key = "mvd.aas.server.username", description = "Username for the AAS server", required = false)
+    @Setting(key = "mvd.aas.server.user", description = "Username for the AAS server", required = false)
     private String aasUsername;
     @Setting(key = "mvd.aas.server.password", description = "Password for the AAS server", required = false)
     private String aasPassword;
