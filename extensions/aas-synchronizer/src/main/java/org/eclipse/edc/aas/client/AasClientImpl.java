@@ -15,36 +15,36 @@
 package org.eclipse.edc.aas.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import okhttp3.Credentials;
 import okhttp3.Request;
 import org.eclipse.edc.aas.client.model.Submodel;
 import org.eclipse.edc.aas.client.model.SubmodelResponse;
 import org.eclipse.edc.http.spi.EdcHttpClient;
 import org.eclipse.edc.spi.result.Result;
+import org.eclipse.edc.spi.security.Vault;
 
 import java.util.List;
 
 import static java.util.Objects.requireNonNull;
+import static org.eclipse.edc.aas.AasSynchronizerExtension.MVD_AAS_BASIC_AUTH_ALIAS;
 
 public class AasClientImpl implements AasClient {
     private final EdcHttpClient httpClient;
     private final ObjectMapper objectMapper;
     private final String baseUrl;
-    private final String username;
-    private final String password;
+    private final Vault vault;
 
-    public AasClientImpl(EdcHttpClient httpClient, ObjectMapper objectMapper, String baseUrl, String username, String password) {
+    public AasClientImpl(EdcHttpClient httpClient, ObjectMapper objectMapper, String baseUrl, Vault vault) {
         this.httpClient = httpClient;
         this.objectMapper = objectMapper;
         this.baseUrl = baseUrl;
-        this.username = username;
-        this.password = password;
+        this.vault = vault;
     }
 
     @Override
     public Result<List<Submodel>> getSubmodels() {
+        var credentials = requireNonNull(vault.resolveSecret(MVD_AAS_BASIC_AUTH_ALIAS), "Did not find AAS Basic Auth credentials in vault ('%s')".formatted(MVD_AAS_BASIC_AUTH_ALIAS));
         var request = new Request.Builder()
-                .header("Authorization", Credentials.basic(username, password))
+                .header("Authorization", credentials)
                 .url(baseUrl + "/submodels")
                 .get()
                 .build();
