@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "e03235de-753f-49ed-8e70-86dd9b9b8ecd",
+		"_postman_id": "e48a959d-b160-4390-ba26-1272ff961022",
 		"name": "MVD",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "27652630"
+		"_exporter_id": "647585"
 	},
 	"item": [
 		{
@@ -566,6 +566,66 @@
 					"response": []
 				},
 				{
+					"name": "Initiate negotiation (AAS Asset)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"if(!pm.environment.has(\"POLICY_ID_ASSET_1\")){",
+									"    throw new Error('Policy-ID of Asset-1 is not yet available, please execute request \"Get Cached Catalog\" first!');",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"CONTRACT_NEGOTIATION_ID\", pm.response.json()[\"@id\"])",
+									"",
+									"pm.test(\"Status code is >=200 and <300\", function () {",
+									"    pm.expect(pm.response.code < 300 && pm.response.code >= 200).to.be.true",
+									"});",
+									"pm.test(\"Contract negotiation id is set\", function(){",
+									"    pm.expect(pm.environment.get(\"CONTRACT_NEGOTIATION_ID\")).not.to.be.undefined",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"@context\": [\n        \"https://w3id.org/edc/connector/management/v0.0.1\"\n    ],\n    \"@type\": \"ContractRequest\",\n    \"counterPartyAddress\": \"{{PROVIDER_DSP_URL}}/api/dsp\",\n    \"counterPartyId\": \"{{PROVIDER_ID}}\",\n    \"protocol\": \"dataspace-protocol-http\",\n    \"policy\": {\n        \"@id\": \"bXZkOmFhczpzeW5jOmNvbnRyYWN0ZGVmaW5pdGlvbjox:bnN1PWh0dHA6Ly9pbmR1c3RyaWFsZGlnaXRhbHR3aW4ub3JnL1VBL0RpZ2l0YWxCYXR0ZXJ5UGFzc3BvcnQvO2k9MzM=:NzkxMmZiZGQtNmYxMy00ZmVlLWE1ZjktNDg4MDQ1Y2FmODQw\",\n        \"@type\": \"odrl:Offer\",\n        \"assigner\": \"{{PROVIDER_ID}}\",\n        \"odrl:permission\": [],\n        \"odrl:prohibition\": [],\n        \"odrl:obligation\": {\n            \"odrl:action\": {\n                \"@id\": \"odrl:use\"\n            },\n            \"odrl:constraint\": {\n                \"odrl:leftOperand\": {\n                    \"@id\": \"DataAccess.level\"\n                },\n                \"odrl:operator\": {\n                    \"@id\": \"odrl:eq\"\n                },\n                \"odrl:rightOperand\": \"processing\"\n            }\n        },\n        \"target\": \"nsu=http://industrialdigitaltwin.org/UA/DigitalBatteryPassport/;i=33\"\n    },\n    \"callbackAddresses\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/management/v3/contractnegotiations",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"management",
+								"v3",
+								"contractnegotiations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get Contract Negotiations",
 					"event": [
 						{
@@ -877,13 +937,14 @@
 							}
 						],
 						"url": {
-							"raw": "{{PROVIDER_PUBLIC_API}}/api/public",
+							"raw": "{{PROVIDER_PUBLIC_API}}/api/public/bnN1PWh0dHA6Ly9pbmR1c3RyaWFsZGlnaXRhbHR3aW4ub3JnL1VBL0RpZ2l0YWxCYXR0ZXJ5UGFzc3BvcnQvO2k9MzM=",
 							"host": [
 								"{{PROVIDER_PUBLIC_API}}"
 							],
 							"path": [
 								"api",
-								"public"
+								"public",
+								"bnN1PWh0dHA6Ly9pbmR1c3RyaWFsZGlnaXRhbHR3aW4ub3JnL1VBL0RpZ2l0YWxCYXR0ZXJ5UGFzc3BvcnQvO2k9MzM="
 							]
 						}
 					},
