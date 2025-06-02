@@ -136,10 +136,9 @@ resource "kubernetes_ingress_v1" "provider_aas_ingress" {
   }
 
   spec {
-    ingress_class_name = "nginx"  # or "public" / "nginx-internal" based on your controller
+    ingress_class_name = "nginx" # or "public" / "nginx-internal" based on your controller
 
     rule {
-      host = "localhost"
 
       http {
         path {
