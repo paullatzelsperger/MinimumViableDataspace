@@ -17,10 +17,10 @@ plugins {
 }
 
 dependencies {
-    implementation("org.eclipse.edc:http-spi:0.13.0-SNAPSHOT")
-    implementation("org.eclipse.edc:api-lib:0.13.0-SNAPSHOT")
-    implementation("org.eclipse.edc:http-lib:0.13.0-SNAPSHOT")
-    implementation("org.eclipse.edc:asset-api:0.13.0-SNAPSHOT")
+    implementation(libs.edc.spi.http)
+    implementation(libs.edc.lib.api)
+    implementation(libs.edc.lib.http)
+    implementation(libs.edc.api.asset)
     testImplementation(libs.edc.junit)
     testImplementation(libs.testcontainers.junit)
 }
