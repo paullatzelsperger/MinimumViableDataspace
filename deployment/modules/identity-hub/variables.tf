@@ -20,6 +20,11 @@
 ## Normally, you shouldn't need to change any values here. If you do, please be sure to also change them in the seed script (seed-k8s.sh).
 ## Neglecting to do that will render the connectors and identity hubs inoperable!
 
+variable "image-pull-policy" {
+  default     = "Always"
+  type        = string
+  description = "Kubernetes ImagePullPolicy for all images"
+}
 
 variable "humanReadableName" {
   type        = string

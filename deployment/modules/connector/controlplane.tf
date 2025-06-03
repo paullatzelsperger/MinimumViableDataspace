@@ -44,8 +44,8 @@ resource "kubernetes_deployment" "controlplane" {
       spec {
         container {
           name              = "connector-${lower(var.humanReadableName)}"
-          image             = "controlplane:latest"
-          image_pull_policy = "Never"
+          image             = "ghcr.io/paullatzelsperger/minimumviabledataspace/controlplane:latest"
+          image_pull_policy = var.image-pull-policy
 
           env_from {
             config_map_ref {
@@ -175,11 +175,11 @@ resource "kubernetes_config_map" "connector-config" {
     EDC_DATASOURCE_DEFAULT_URL                 = var.database.url
     EDC_DATASOURCE_DEFAULT_USER                = var.database.user
     EDC_DATASOURCE_DEFAULT_PASSWORD            = var.database.password
-    EDC_SQL_SCHEMA_AUTOCREATE = true
+    EDC_SQL_SCHEMA_AUTOCREATE                  = true
 
     # remote STS configuration
-    EDC_IAM_STS_OAUTH_TOKEN_URL = var.sts-token-url
-    EDC_IAM_STS_OAUTH_CLIENT_ID = var.participantId
+    EDC_IAM_STS_OAUTH_TOKEN_URL           = var.sts-token-url
+    EDC_IAM_STS_OAUTH_CLIENT_ID           = var.participantId
     EDC_IAM_STS_OAUTH_CLIENT_SECRET_ALIAS = "${var.participantId}-sts-client-secret"
 
     # AAS configuration
