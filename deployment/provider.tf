@@ -47,6 +47,7 @@ module "provider-manufacturing-connector" {
   vault-url           = "http://provider-vault.${kubernetes_namespace.ns-provider-ctrl.metadata.0.name}.svc.cluster.local:8200"
   sts-token-url       = "${module.provider-identityhub.sts-token-url}/token"
   useSVE              = var.useSVE
+  image-pull-policy = var.pull-policy
 }
 
 module "provider-identityhub" {
@@ -65,7 +66,8 @@ module "provider-identityhub" {
     password = "identity"
     url      = "jdbc:postgresql://${module.provider-identityhub-postgres.database-url}/identity"
   }
-  useSVE = var.useSVE
+  useSVE            = var.useSVE
+  image-pull-policy = var.pull-policy
 }
 
 # Postgres database for the consumer
@@ -93,7 +95,8 @@ module "provider-catalog-server" {
     password = "catalog_server"
     url      = "jdbc:postgresql://${module.provider-postgres.database-url}/catalog_server"
   }
-  useSVE = var.useSVE
+  useSVE            = var.useSVE
+  image-pull-policy = var.pull-policy
 }
 
 module "provider-vault" {

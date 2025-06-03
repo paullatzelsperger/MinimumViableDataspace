@@ -37,8 +37,8 @@ resource "kubernetes_deployment" "identityhub" {
 
       spec {
         container {
-          image_pull_policy = "Never"
-          image             = "identity-hub:latest"
+          image_pull_policy = var.image-pull-policy
+          image             = "ghcr.io/paullatzelsperger/minimumviabledataspace/identity-hub:latest"
           name              = "identity-hub"
 
           env_from {

@@ -33,12 +33,6 @@ val edcGradlePluginsVersion: String by project
 allprojects {
     apply(plugin = "${group}.edc-build")
 
-    // configure which version of the annotation processor to use. defaults to the same version as the plugin
-    configure<org.eclipse.edc.plugins.autodoc.AutodocExtension> {
-        outputDirectory.set(project.layout.buildDirectory.asFile)
-        processorVersion.set(edcGradlePluginsVersion)
-    }
-
     configure<org.eclipse.edc.plugins.edcbuild.extensions.BuildExtension> {
         swagger {
             title.set("Identity HUB REST API")
@@ -51,7 +45,7 @@ allprojects {
 subprojects {
     afterEvaluate {
         if (project.plugins.hasPlugin("com.github.johnrengelman.shadow") &&
-                file("${project.projectDir}/src/main/docker/Dockerfile").exists()
+            file("${project.projectDir}/src/main/docker/Dockerfile").exists()
         ) {
 
             //actually apply the plugin to the (sub-)project
@@ -60,8 +54,8 @@ subprojects {
             val dockerTask: DockerBuildImage = tasks.create("dockerize", DockerBuildImage::class) {
                 val dockerContextDir = project.projectDir
                 dockerFile.set(file("$dockerContextDir/src/main/docker/Dockerfile"))
-                images.add("${project.name}:${project.version}")
-                images.add("${project.name}:latest")
+                images.add("ghcr.io/paullatzelsperger/minimumviabledataspace/${project.name}:${project.version}")
+                images.add("ghcr.io/paullatzelsperger/minimumviabledataspace/${project.name}:latest")
                 // specify platform with the -Dplatform flag:
                 if (System.getProperty("platform") != null)
                     platform.set(System.getProperty("platform"))

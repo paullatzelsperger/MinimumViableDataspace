@@ -17,6 +17,12 @@
 #  SPDX-License-Identifier: Apache-2.0
 #
 
+variable "pull-policy" {
+  type        = string
+  description = "Kubernetes ImagePullPolicy for all images"
+  default     = "Always"
+}
+
 variable "consumer-did" {
   default = "did:web:consumer-identityhub.mvd-consumer-security.svc.cluster.local%3A7083:consumer"
 }

@@ -29,6 +29,8 @@ module "consumer-connector" {
   namespace-dataplane = kubernetes_namespace.ns-consumer-data.metadata.0.name
   sts-token-url       = "${module.consumer-identityhub.sts-token-url}/token"
   useSVE              = var.useSVE
+  image-pull-policy = var.pull-policy
+
 }
 
 # Postgres database for the consumer connector
@@ -56,6 +58,8 @@ module "consumer-identityhub" {
   }
   namespace = kubernetes_namespace.ns-consumer-security.metadata.0.name
   useSVE    = var.useSVE
+  image-pull-policy = var.pull-policy
+
 }
 
 # Postgres database for the consumer identity hub

@@ -44,8 +44,8 @@ resource "kubernetes_deployment" "controlplane" {
       spec {
         container {
           name              = "connector-${lower(var.humanReadableName)}"
-          image             = "controlplane:latest"
-          image_pull_policy = "Never"
+          image             = "ghcr.io/paullatzelsperger/minimumviabledataspace/controlplane:latest"
+          image_pull_policy = var.image-pull-policy
 
           env_from {
             config_map_ref {
