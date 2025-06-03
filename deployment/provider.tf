@@ -34,6 +34,7 @@ module "provider-qna-connector" {
     password = kubernetes_secret.provider_aas_secret.data.ServicePassword
     user     = "admin"
   }
+  image-pull-policy = var.pull-policy
 }
 
 # Second provider connector "provider-manufacturing"
@@ -55,12 +56,13 @@ module "provider-manufacturing-connector" {
     password = kubernetes_secret.provider_aas_secret.data.ServicePassword
     user     = "admin"
   }
+  image-pull-policy = var.pull-policy
 }
 
 module "provider-identityhub" {
-  depends_on = [module.provider-vault]
-  source        = "./modules/identity-hub"
-  credentials-dir = dirname("./assets/credentials/k8s/provider/")
+  depends_on        = [module.provider-vault]
+  source            = "./modules/identity-hub"
+  credentials-dir   = dirname("./assets/credentials/k8s/provider/")
   humanReadableName = "provider-identityhub"
   # must be named "provider-identityhub" until we regenerate DIDs and credentials
   participantId = var.provider-did
@@ -73,7 +75,8 @@ module "provider-identityhub" {
     password = "identity"
     url      = "jdbc:postgresql://${module.provider-postgres.database-url}/identity"
   }
-  useSVE = var.useSVE
+  useSVE            = var.useSVE
+  image-pull-policy = var.pull-policy
 }
 
 # Catalog server runtime
@@ -90,7 +93,8 @@ module "provider-catalog-server" {
     password = "catalog_server"
     url      = "jdbc:postgresql://${module.provider-postgres.database-url}/catalog_server"
   }
-  useSVE = var.useSVE
+  useSVE            = var.useSVE
+  image-pull-policy = var.pull-policy
 }
 
 module "provider-vault" {
@@ -101,7 +105,7 @@ module "provider-vault" {
 
 # Postgres database for the consumer
 module "provider-postgres" {
-  depends_on = [kubernetes_config_map.postgres-initdb-config-cs]
+  depends_on    = [kubernetes_config_map.postgres-initdb-config-cs]
   source        = "./modules/postgres"
   instance-name = "provider"
   init-sql-configs = [

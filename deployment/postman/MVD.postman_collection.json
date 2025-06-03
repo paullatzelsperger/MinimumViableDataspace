@@ -937,7 +937,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{PROVIDER_PUBLIC_API}}/api/public/bnN1PWh0dHA6Ly9pbmR1c3RyaWFsZGlnaXRhbHR3aW4ub3JnL1VBL0RpZ2l0YWxCYXR0ZXJ5UGFzc3BvcnQvO2k9MzM=/RemainingCapacity",
+							"raw": "{{PROVIDER_PUBLIC_API}}/api/public/bnN1PWh0dHA6Ly9pbmR1c3RyaWFsZGlnaXRhbHR3aW4ub3JnL1VBL0RpZ2l0YWxCYXR0ZXJ5UGFzc3BvcnQvO2k9MzM=/RemainingPowerCapability",
 							"host": [
 								"{{PROVIDER_PUBLIC_API}}"
 							],
@@ -945,7 +945,7 @@
 								"api",
 								"public",
 								"bnN1PWh0dHA6Ly9pbmR1c3RyaWFsZGlnaXRhbHR3aW4ub3JnL1VBL0RpZ2l0YWxCYXR0ZXJ5UGFzc3BvcnQvO2k9MzM=",
-								"RemainingCapacity"
+								"RemainingPowerCapability"
 							]
 						}
 					},
