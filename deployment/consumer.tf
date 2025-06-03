@@ -24,10 +24,11 @@ module "consumer-connector" {
     password = "consumer"
     url      = "jdbc:postgresql://${module.consumer-postgres.database-url}/consumer"
   }
-  vault-url     = "http://consumer-vault:8200"
-  namespace     = kubernetes_namespace.ns.metadata.0.name
-  sts-token-url = "${module.consumer-identityhub.sts-token-url}/token"
-  useSVE        = var.useSVE
+  vault-url         = "http://consumer-vault:8200"
+  namespace         = kubernetes_namespace.ns.metadata.0.name
+  sts-token-url     = "${module.consumer-identityhub.sts-token-url}/token"
+  useSVE            = var.useSVE
+  image-pull-policy = var.pull-policy
 }
 
 # consumer identity hub
@@ -44,8 +45,9 @@ module "consumer-identityhub" {
     password = "consumer"
     url      = "jdbc:postgresql://${module.consumer-postgres.database-url}/consumer"
   }
-  namespace = kubernetes_namespace.ns.metadata.0.name
-  useSVE    = var.useSVE
+  namespace         = kubernetes_namespace.ns.metadata.0.name
+  useSVE            = var.useSVE
+  image-pull-policy = var.pull-policy
 }
 
 

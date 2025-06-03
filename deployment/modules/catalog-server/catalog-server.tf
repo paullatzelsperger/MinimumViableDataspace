@@ -44,8 +44,8 @@ resource "kubernetes_deployment" "connector" {
       spec {
         container {
           name              = lower(var.humanReadableName)
-          image             = "catalog-server:latest"
-          image_pull_policy = "Never"
+          image             = "ghcr.io/paullatzelsperger/minimumviabledataspace/catalog-server:latest"
+          image_pull_policy = var.image-pull-policy
 
           env_from {
             config_map_ref {

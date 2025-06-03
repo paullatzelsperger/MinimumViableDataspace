@@ -46,8 +46,8 @@ resource "kubernetes_deployment" "dataplane" {
       spec {
         container {
           name              = "dataplane-${lower(var.humanReadableName)}"
-          image             = "dataplane:latest"
-          image_pull_policy = "Never"
+          image             = "ghcr.io/paullatzelsperger/minimumviabledataspace/dataplane:latest"
+          image_pull_policy = var.image-pull-policy
 
           env_from {
             config_map_ref {

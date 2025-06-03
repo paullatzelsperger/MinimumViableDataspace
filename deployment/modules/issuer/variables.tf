@@ -11,6 +11,11 @@
 #       Cofinity-X - initial API and implementation
 #
 
+variable "image-pull-policy" {
+  default     = "Always"
+  type        = string
+  description = "Kubernetes ImagePullPolicy for all images"
+}
 
 variable "humanReadableName" {
   type        = string
