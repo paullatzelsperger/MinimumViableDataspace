@@ -70,7 +70,12 @@ jobs:
           cluster_name: dcp-demo
 
       - name: "Load runtime images into KinD"
-        run: kind load docker-image controlplane:latest dataplane:latest identity-hub:latest catalog-server:latest issuerservice:latest -n dcp-demo
+        run: |
+          kind load docker-image ghcr.io/paullatzelsperger/minimumviabledataspace/controlplane:latest \
+            ghcr.io/paullatzelsperger/minimumviabledataspace/identity-hub:latest \
+            ghcr.io/paullatzelsperger/minimumviabledataspace/catalog-server:latest \
+            ghcr.io/paullatzelsperger/minimumviabledataspace/dataplane:latest \
+            ghcr.io/paullatzelsperger/minimumviabledataspace/issuerservice:latest -n dcp-demo
 
       - name: "Install nginx ingress controller"
         run: |-
