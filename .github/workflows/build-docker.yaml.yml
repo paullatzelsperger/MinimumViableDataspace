@@ -21,7 +21,7 @@ name: Build and Push Launcher Images
 
 on:
   push:
-    branches: [ main, feat/aas_demo, feat/use_prebuilt_images ]
+    branches: [ main, feat/aas_demo ]
   pull_request:
     branches: [ main ]
   workflow_run:
