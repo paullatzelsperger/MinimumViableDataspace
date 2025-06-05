@@ -506,6 +506,72 @@
 					"response": []
 				},
 				{
+					"name": "Get Cached Catalogs (AAS Asset)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// get the policy id of \"asset-1\" and save it as an environment variable",
+									"if(pm.response.code < 300 && pm.response.code >= 200){",
+									"    if(pm.response.json().length > 0){",
+									"        const dcat_datasets = pm.response.json()[0][\"dcat:catalog\"][0][\"dcat:dataset\"]",
+									"        const asset_1 = dcat_datasets.find((asset) => asset[\"@id\"] == \"nsu=http://industrialdigitaltwin.org/UA/DigitalBatteryPassport/;i=33\")",
+									"        pm.environment.set(\"POLICY_ID_ASSET_I33\", asset_1[\"odrl:hasPolicy\"][\"@id\"]);",
+									"    }",
+									"}",
+									"",
+									"pm.test(\"Status code is >=200 and <300\", function () {",
+									"    pm.expect(pm.response.code < 300 && pm.response.code >= 200).to.be.true",
+									"});",
+									"pm.test(\"Policy id for asset 1 is set\", function(){",
+									"    pm.expect(pm.environment.get(\"POLICY_ID_ASSET_1\")).not.to.be.undefined",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"@context\": [\n        \"https://w3id.org/edc/connector/management/v0.0.1\"\n    ],\n    \"@type\": \"QuerySpec\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{CONSUMER_CATALOG_QUERY_URL}}/api/catalog/v1alpha/catalog/query",
+							"host": [
+								"{{CONSUMER_CATALOG_QUERY_URL}}"
+							],
+							"path": [
+								"api",
+								"catalog",
+								"v1alpha",
+								"catalog",
+								"query"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Initiate negotiation",
 					"event": [
 						{
@@ -603,7 +669,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"@context\": [\n        \"https://w3id.org/edc/connector/management/v0.0.1\"\n    ],\n    \"@type\": \"ContractRequest\",\n    \"counterPartyAddress\": \"{{PROVIDER_DSP_URL}}/api/dsp\",\n    \"counterPartyId\": \"{{PROVIDER_ID}}\",\n    \"protocol\": \"dataspace-protocol-http\",\n    \"policy\": {\n        \"@id\": \"bXZkOmFhczpzeW5jOmNvbnRyYWN0ZGVmaW5pdGlvbjox:bnN1PWh0dHA6Ly9pbmR1c3RyaWFsZGlnaXRhbHR3aW4ub3JnL1VBL0RpZ2l0YWxCYXR0ZXJ5UGFzc3BvcnQvO2k9MzM=:NjgzNjM2YjUtMDk3Ny00MTRmLTg3ZGMtYzgyZDZhYWRmZGNh\",\n        \"@type\": \"odrl:Offer\",\n        \"assigner\": \"{{PROVIDER_ID}}\",\n        \"odrl:permission\": [],\n        \"odrl:prohibition\": [],\n        \"odrl:obligation\": {\n            \"odrl:action\": {\n                \"@id\": \"odrl:use\"\n            },\n            \"odrl:constraint\": {\n                \"odrl:leftOperand\": {\n                    \"@id\": \"DataAccess.level\"\n                },\n                \"odrl:operator\": {\n                    \"@id\": \"odrl:eq\"\n                },\n                \"odrl:rightOperand\": \"processing\"\n            }\n        },\n        \"target\": \"nsu=http://industrialdigitaltwin.org/UA/DigitalBatteryPassport/;i=33\"\n    },\n    \"callbackAddresses\": []\n}",
+							"raw": "{\n    \"@context\": [\n        \"https://w3id.org/edc/connector/management/v0.0.1\"\n    ],\n    \"@type\": \"ContractRequest\",\n    \"counterPartyAddress\": \"{{PROVIDER_DSP_URL}}/api/dsp\",\n    \"counterPartyId\": \"{{PROVIDER_ID}}\",\n    \"protocol\": \"dataspace-protocol-http\",\n    \"policy\": {\n        \"@id\": \"{{POLICY_ID_ASSET_I33}}\",\n        \"@type\": \"odrl:Offer\",\n        \"assigner\": \"{{PROVIDER_ID}}\",\n        \"odrl:permission\": [],\n        \"odrl:prohibition\": [],\n        \"odrl:obligation\": {\n            \"odrl:action\": {\n                \"@id\": \"odrl:use\"\n            },\n            \"odrl:constraint\": {\n                \"odrl:leftOperand\": {\n                    \"@id\": \"DataAccess.level\"\n                },\n                \"odrl:operator\": {\n                    \"@id\": \"odrl:eq\"\n                },\n                \"odrl:rightOperand\": \"processing\"\n            }\n        },\n        \"target\": \"nsu=http://industrialdigitaltwin.org/UA/DigitalBatteryPassport/;i=33\"\n    },\n    \"callbackAddresses\": []\n}",
 							"options": {
 								"raw": {
 									"language": "json"
