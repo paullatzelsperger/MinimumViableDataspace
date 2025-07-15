@@ -57,7 +57,7 @@ resource "kubernetes_service" "controlplane-service" {
 resource "kubernetes_service" "dataplane-service" {
   metadata {
     name      = local.dataplane-service-name
-    namespace = var.namespace-data
+    namespace = var.namespace-dataplane
   }
   spec {
     type = "NodePort"

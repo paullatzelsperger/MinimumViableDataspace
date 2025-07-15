@@ -55,18 +55,6 @@ resource "kubernetes_ingress_v1" "api-ingress" {
         }
 
         path {
-          path = "/${var.humanReadableName}/public(/|$)(.*)"
-          backend {
-            service {
-              name = kubernetes_service.dataplane-service.metadata.0.name
-              port {
-                number = var.ports.public
-              }
-            }
-          }
-        }
-
-        path {
           path = "/${var.humanReadableName}/fc(/|$)(.*)"
           backend {
             service {
@@ -85,6 +73,35 @@ resource "kubernetes_ingress_v1" "api-ingress" {
               name = "${var.humanReadableName}-vault"
               port {
                 number = 8200
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+resource "kubernetes_ingress_v1" "api-ingress-dataplane" {
+  metadata {
+    name      = "${var.humanReadableName}-ingress-data"
+    namespace = var.namespace-dataplane
+    annotations = {
+      "nginx.ingress.kubernetes.io/rewrite-target" = "/$2"
+      "nginx.ingress.kubernetes.io/use-regex"      = "true"
+    }
+  }
+  spec {
+    ingress_class_name = "nginx"
+    rule {
+      http {
+        path {
+          path = "/${var.humanReadableName}/public(/|$)(.*)"
+          backend {
+            service {
+              name = kubernetes_service.dataplane-service.metadata.0.name
+              port {
+                number = var.ports.public
               }
             }
           }

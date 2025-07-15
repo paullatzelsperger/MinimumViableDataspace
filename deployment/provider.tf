@@ -25,11 +25,11 @@ module "provider-qna-connector" {
     password = "provider-qna"
     url      = "jdbc:postgresql://${module.provider-postgres.database-url}/provider_qna"
   }
-  namespace      = kubernetes_namespace.ns.metadata.0.name
-  namespace-data = kubernetes_namespace.data-ns.metadata.0.name
-  vault-url      = "http://provider-vault.${kubernetes_namespace.ns.metadata.0.name}.svc.cluster.local:8200"
-  sts-token-url  = "${module.provider-identityhub.sts-token-url}/token"
-  useSVE         = var.useSVE
+  namespace           = kubernetes_namespace.ns.metadata.0.name
+  namespace-dataplane = kubernetes_namespace.ns-dataplane.metadata.0.name
+  vault-url           = "http://provider-vault.${kubernetes_namespace.ns.metadata.0.name}.svc.cluster.local:8200"
+  sts-token-url       = "${module.provider-identityhub.sts-token-url}/token"
+  useSVE              = var.useSVE
 }
 
 # Second provider connector "provider-manufacturing"
@@ -42,11 +42,11 @@ module "provider-manufacturing-connector" {
     password = "provider-manufacturing"
     url      = "jdbc:postgresql://${module.provider-postgres.database-url}/provider_manufacturing"
   }
-  namespace      = kubernetes_namespace.ns.metadata.0.name
-  namespace-data = kubernetes_namespace.data-ns.metadata.0.name
-  vault-url      = "http://provider-vault.${kubernetes_namespace.ns.metadata.0.name}.svc.cluster.local:8200"
-  sts-token-url  = "${module.provider-identityhub.sts-token-url}/token"
-  useSVE         = var.useSVE
+  namespace           = kubernetes_namespace.ns.metadata.0.name
+  namespace-dataplane = kubernetes_namespace.ns-dataplane.metadata.0.name
+  vault-url           = "http://provider-vault.${kubernetes_namespace.ns.metadata.0.name}.svc.cluster.local:8200"
+  sts-token-url       = "${module.provider-identityhub.sts-token-url}/token"
+  useSVE              = var.useSVE
 }
 
 module "provider-identityhub" {

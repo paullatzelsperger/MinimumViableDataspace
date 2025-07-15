@@ -35,12 +35,12 @@ terraform {
 }
 
 provider "kubernetes" {
-  config_path = "~/.kube/config"
+  config_path = "${path.root}/mvd-control"
 }
 
 provider "helm" {
   kubernetes = {
-    config_path = "~/.kube/config"
+    config_path = "${path.root}/mvd-control"
   }
 }
 
@@ -50,7 +50,7 @@ resource "kubernetes_namespace" "ns" {
   }
 }
 
-resource "kubernetes_namespace" "data-ns" {
+resource "kubernetes_namespace" "ns-dataplane" {
   metadata {
     name = "mvd-data"
   }
