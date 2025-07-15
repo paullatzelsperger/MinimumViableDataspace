@@ -41,7 +41,7 @@ variable "namespace" {
   type = string
 }
 
-variable "namespace-data" {
+variable "namespace-dataplane" {
   type = string
 }
 

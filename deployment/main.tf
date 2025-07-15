@@ -50,7 +50,7 @@ resource "kubernetes_namespace" "ns" {
   }
 }
 
-resource "kubernetes_namespace" "data-ns" {
+resource "kubernetes_namespace" "ns-dataplane" {
   metadata {
     name = "mvd-data"
   }
