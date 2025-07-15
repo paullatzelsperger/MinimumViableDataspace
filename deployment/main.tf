@@ -49,3 +49,9 @@ resource "kubernetes_namespace" "ns" {
     name = "mvd"
   }
 }
+
+resource "kubernetes_namespace" "data-ns" {
+  metadata {
+    name = "mvd-data"
+  }
+}

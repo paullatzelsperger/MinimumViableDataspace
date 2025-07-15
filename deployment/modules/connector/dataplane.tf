@@ -22,7 +22,7 @@ resource "kubernetes_deployment" "dataplane" {
   depends_on = [kubernetes_deployment.controlplane]
   metadata {
     name      = "${lower(var.humanReadableName)}-dataplane"
-    namespace = var.namespace
+    namespace = var.namespace-data
     labels = {
       App = "${lower(var.humanReadableName)}-dataplane"
     }
@@ -103,18 +103,18 @@ resource "kubernetes_deployment" "dataplane" {
 resource "kubernetes_config_map" "dataplane-config" {
   metadata {
     name      = "${lower(var.humanReadableName)}-dataplane-config"
-    namespace = var.namespace
+    namespace = var.namespace-data
   }
 
   ## Create databases for keycloak and MIW, create users and assign privileges
   data = {
     # hostname is "localhost" by default, but must be the service name at which the dataplane is reachable. URL scheme and port are appended by the application
-    EDC_HOSTNAME                                      = local.dataplane-service-name
+    EDC_HOSTNAME                                      = "${local.dataplane-service-name}.${var.namespace-data}.svc.cluster.local"
     EDC_RUNTIME_ID                                    = "${var.humanReadableName}-dataplane"
     EDC_PARTICIPANT_ID                                = var.participantId
     EDC_TRANSFER_PROXY_TOKEN_VERIFIER_PUBLICKEY_ALIAS = "${var.participantId}#${var.aliases.sts-public-key-id}"
     EDC_TRANSFER_PROXY_TOKEN_SIGNER_PRIVATEKEY_ALIAS  = "${var.participantId}#${var.aliases.sts-private-key}"
-    EDC_DPF_SELECTOR_URL                              = "http://${local.controlplane-service-name}:${var.ports.control}/api/control/v1/dataplanes"
+    EDC_DPF_SELECTOR_URL                              = "http://${local.controlplane-service-name}.${var.namespace}.svc.cluster.local:${var.ports.control}/api/control/v1/dataplanes"
     WEB_HTTP_PORT                                     = var.ports.web
     WEB_HTTP_PATH                                     = "/api"
     WEB_HTTP_CONTROL_PORT                             = var.ports.control

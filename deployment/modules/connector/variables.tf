@@ -41,6 +41,10 @@ variable "namespace" {
   type = string
 }
 
+variable "namespace-data" {
+  type = string
+}
+
 variable "ports" {
   type = object({
     web        = number
