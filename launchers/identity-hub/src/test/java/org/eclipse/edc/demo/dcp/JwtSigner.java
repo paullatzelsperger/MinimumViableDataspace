@@ -121,36 +121,36 @@ public class JwtSigner {
                     // PROVIDER credentials, K8S and local
                     Arguments.of(System.getProperty("user.dir") + "/../../deployment/assets/credentials/k8s/provider/membership_vc.json",
                             new File(System.getProperty("user.dir") + "/../../deployment/assets/credentials/k8s/provider/membership-credential.json"),
-                            "did:web:provider-identityhub%3A7083:bob", DATASPACE_ISSUER_DID_K8S, ISSUER_DID_DOCUMENT_K8S),
+                            "did:web:provider-identityhub.mvd.svc.cluster.local%3A7083:provider", DATASPACE_ISSUER_DID_K8S, ISSUER_DID_DOCUMENT_K8S),
 
                     Arguments.of(System.getProperty("user.dir") + "/../../deployment/assets/credentials/k8s/provider/dataprocessor_vc.json",
                             new File(System.getProperty("user.dir") + "/../../deployment/assets/credentials/k8s/provider/dataprocessor-credential.json"),
-                            "did:web:provider-identityhub%3A7083:bob", DATASPACE_ISSUER_DID_K8S, ISSUER_DID_DOCUMENT_K8S),
+                            "did:web:provider-identityhub.mvd.svc.cluster.local%3A7083:provider", DATASPACE_ISSUER_DID_K8S, ISSUER_DID_DOCUMENT_K8S),
 
                     Arguments.of(System.getProperty("user.dir") + "/../../deployment/assets/credentials/local/provider/unsigned/membership_vc.json",
                             new File(System.getProperty("user.dir") + "/../../deployment/assets/credentials/local/provider/membership-credential.json"),
-                            "did:web:provider-identityhub%3A7083:bob", DATASPACE_ISSUER_DID_LOCAL, ISSUER_DID_DOCUMENT_LOCAL),
+                            "did:web:provider-identityhub.mvd.svc.cluster.local%3A7083:provider", DATASPACE_ISSUER_DID_LOCAL, ISSUER_DID_DOCUMENT_LOCAL),
 
                     Arguments.of(System.getProperty("user.dir") + "/../../deployment/assets/credentials/local/provider/unsigned/dataprocessor_vc.json",
                             new File(System.getProperty("user.dir") + "/../../deployment/assets/credentials/local/provider/dataprocessor-credential.json"),
-                            "did:web:provider-identityhub%3A7083:bob", DATASPACE_ISSUER_DID_LOCAL, ISSUER_DID_DOCUMENT_LOCAL),
+                            "did:web:provider-identityhub.mvd.svc.cluster.local%3A7083:provider", DATASPACE_ISSUER_DID_LOCAL, ISSUER_DID_DOCUMENT_LOCAL),
 
                     // CONSUMER credentials, K8S and local
                     Arguments.of(System.getProperty("user.dir") + "/../../deployment/assets/credentials/k8s/consumer/membership_vc.json",
                             new File(System.getProperty("user.dir") + "/../../deployment/assets/credentials/k8s/consumer/membership-credential.json"),
-                            "did:web:consumer-identityhub%3A7083:alice", DATASPACE_ISSUER_DID_K8S, ISSUER_DID_DOCUMENT_K8S),
+                            "did:web:consumer-identityhub%3A7083:consumer", DATASPACE_ISSUER_DID_K8S, ISSUER_DID_DOCUMENT_K8S),
 
                     Arguments.of(System.getProperty("user.dir") + "/../../deployment/assets/credentials/k8s/consumer/dataprocessor_vc.json",
                             new File(System.getProperty("user.dir") + "/../../deployment/assets/credentials/k8s/consumer/dataprocessor-credential.json"),
-                            "did:web:consumer-identityhub%3A7083:alice", DATASPACE_ISSUER_DID_K8S, ISSUER_DID_DOCUMENT_K8S),
+                            "did:web:consumer-identityhub%3A7083:consumer", DATASPACE_ISSUER_DID_K8S, ISSUER_DID_DOCUMENT_K8S),
 
                     Arguments.of(System.getProperty("user.dir") + "/../../deployment/assets/credentials/local/consumer/unsigned/membership_vc.json",
                             new File(System.getProperty("user.dir") + "/../../deployment/assets/credentials/local/consumer/membership-credential.json"),
-                            "did:web:consumer-identityhub%3A7083:alice", DATASPACE_ISSUER_DID_LOCAL, ISSUER_DID_DOCUMENT_LOCAL),
+                            "did:web:consumer-identityhub%3A7083:consumer", DATASPACE_ISSUER_DID_LOCAL, ISSUER_DID_DOCUMENT_LOCAL),
 
                     Arguments.of(System.getProperty("user.dir") + "/../../deployment/assets/credentials/local/consumer/unsigned/dataprocessor_vc.json",
                             new File(System.getProperty("user.dir") + "/../../deployment/assets/credentials/local/consumer/dataprocessor-credential.json"),
-                            "did:web:consumer-identityhub%3A7083:alice", DATASPACE_ISSUER_DID_LOCAL, ISSUER_DID_DOCUMENT_LOCAL)
+                            "did:web:consumer-identityhub%3A7083:consumer", DATASPACE_ISSUER_DID_LOCAL, ISSUER_DID_DOCUMENT_LOCAL)
 
             );
         }

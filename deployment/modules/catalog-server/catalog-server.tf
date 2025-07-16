@@ -133,7 +133,7 @@ resource "kubernetes_config_map" "catalog-server-config" {
     WEB_HTTP_CONTROL_PATH           = "/api/control"
     WEB_HTTP_PROTOCOL_PORT          = var.ports.protocol
     WEB_HTTP_PROTOCOL_PATH          = "/api/dsp"
-    EDC_DSP_CALLBACK_ADDRESS        = "http://${local.controlplane-service-name}:${var.ports.protocol}/api/dsp"
+    EDC_DSP_CALLBACK_ADDRESS        = "http://${local.controlplane-service-name}.${var.namespace}.svc.cluster.local:${var.ports.protocol}/api/dsp"
     EDC_IAM_STS_PRIVATEKEY_ALIAS    = "${var.participantId}#${var.aliases.sts-private-key}"
     EDC_IAM_STS_PUBLICKEY_ID        = "${var.participantId}#${var.aliases.sts-public-key-id}"
     JAVA_TOOL_OPTIONS               = "${var.useSVE ? "-XX:UseSVE=0 " : ""}-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=${var.ports.debug}"

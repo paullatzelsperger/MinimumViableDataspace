@@ -56,7 +56,7 @@ module "provider-identityhub" {
   humanReadableName = "provider-identityhub"
   # must be named "provider-identityhub" until we regenerate DIDs and credentials
   participantId = var.provider-did
-  vault-url     = "http://provider-vault:8200"
+  vault-url     = "http://provider-vault.${kubernetes_namespace.ns.metadata.0.name}.svc.cluster.local:8200"
   service-name  = "provider"
   namespace     = kubernetes_namespace.ns.metadata.0.name
 
@@ -74,7 +74,7 @@ module "provider-catalog-server" {
   humanReadableName = "provider-catalog-server"
   participantId     = var.provider-did
   namespace         = kubernetes_namespace.ns.metadata.0.name
-  vault-url         = "http://provider-vault:8200"
+  vault-url         = "http://provider-vault.${kubernetes_namespace.ns.metadata.0.name}.svc.cluster.local:8200"
   sts-token-url     = "${module.provider-identityhub.sts-token-url}/token"
 
   database = {
