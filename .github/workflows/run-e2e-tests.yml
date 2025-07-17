@@ -67,20 +67,21 @@ jobs:
         uses: helm/kind-action@v1.12.0
         with:
           config: deployment/kind.config.yaml
-          cluster_name: dcp-demo
+          cluster_name: mvd-origin
+          kubeconfig: deployment/mvd-origin
 
       - name: "Load runtime images into KinD"
-        run: kind load docker-image controlplane:latest dataplane:latest identity-hub:latest catalog-server:latest issuerservice:latest -n dcp-demo
+        run: kind load docker-image controlplane:latest dataplane:latest identity-hub:latest catalog-server:latest issuerservice:latest -n mvd-origin
 
       - name: "Install nginx ingress controller"
         run: |-
           echo "::notice title=nginx ingress on KinD::For details how to run nginx ingress on KinD check https://kind.sigs.k8s.io/docs/user/ingress/#ingress-nginx"
-          kubectl apply -f https://kind.sigs.k8s.io/examples/ingress/deploy-ingress-nginx.yaml
+          kubectl apply -f https://kind.sigs.k8s.io/examples/ingress/deploy-ingress-nginx.yaml --kubeconfig deployment/mvd-origin
           kubectl wait --namespace ingress-nginx \
             --for=condition=ready pod \
             --selector=app.kubernetes.io/component=controller \
-            --timeout=90s
-
+            --timeout=90s \
+            --kubeconfig deployment/mvd-origin
 
 
       - name: "Tofu init"
@@ -119,7 +120,7 @@ jobs:
 
       - name: "Destroy the KinD cluster"
         run: >-
-          kind delete cluster -n dcp-demo
+          kind delete cluster -n mvd-origin
 
   Secrets-Presence:
     name: "Check for required credentials"

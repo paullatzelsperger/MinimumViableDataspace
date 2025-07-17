@@ -35,12 +35,12 @@ terraform {
 }
 
 provider "kubernetes" {
-  config_path = "${path.root}/mvd-control"
+  config_path = "${path.root}/mvd-origin"
 }
 
 provider "helm" {
   kubernetes = {
-    config_path = "${path.root}/mvd-control"
+    config_path = "${path.root}/mvd-origin"
   }
 }
 
