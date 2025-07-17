@@ -26,7 +26,7 @@ module "provider-qna-connector" {
     url      = "jdbc:postgresql://${module.provider-postgres.database-url}/provider_qna"
   }
   namespace           = kubernetes_namespace.ns-provider-ctrl.metadata.0.name
-  namespace-dataplane = kubernetes_namespace.ns-provider-data.metadata.0.name
+  namespace-dataplane = kubernetes_namespace.ns-provider-data-qna.metadata.0.name
   vault-url           = "http://provider-vault.${kubernetes_namespace.ns-provider-ctrl.metadata.0.name}.svc.cluster.local:8200"
   sts-token-url       = "${module.provider-identityhub.sts-token-url}/token"
   useSVE              = var.useSVE
@@ -43,7 +43,7 @@ module "provider-manufacturing-connector" {
     url      = "jdbc:postgresql://${module.provider-postgres.database-url}/provider_manufacturing"
   }
   namespace           = kubernetes_namespace.ns-provider-ctrl.metadata.0.name
-  namespace-dataplane = kubernetes_namespace.ns-consumer-data.metadata.0.name
+  namespace-dataplane = kubernetes_namespace.ns-provider-data-manufac.metadata.0.name
   vault-url           = "http://provider-vault.${kubernetes_namespace.ns-provider-ctrl.metadata.0.name}.svc.cluster.local:8200"
   sts-token-url       = "${module.provider-identityhub.sts-token-url}/token"
   useSVE              = var.useSVE
@@ -176,8 +176,15 @@ resource "kubernetes_namespace" "ns-provider-security" {
   }
 }
 
-resource "kubernetes_namespace" "ns-provider-data" {
+resource "kubernetes_namespace" "ns-provider-data-manufac" {
   metadata {
-    name = "mvd-provider-data"
+    name = "mvd-provider-data-manufacturing"
+  }
+}
+
+
+resource "kubernetes_namespace" "ns-provider-data-qna" {
+  metadata {
+    name = "mvd-provider-data-qna"
   }
 }
