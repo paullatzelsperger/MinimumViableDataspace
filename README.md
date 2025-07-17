@@ -919,7 +919,7 @@ curl --location 'http://localhost/consumer/cs//api/identity/v1alpha/participants
 --header 'Content-Type: application/json' \
 --header 'X-Api-Key: c3VwZXItdXNlcg==.c3VwZXItc2VjcmV0LWtleQo=' \
 --data '{
-    "issuerDid": "did:web:dataspace-issuer-service%3A10016:issuer",
+    "issuerDid": "did:web:dataspace-issuer-service.mvd.svc.cluster.local%3A10016:issuer",
     "holderPid": "credential-request-1",
     "credentials": [{
         "format": "VC1_0_JWT",

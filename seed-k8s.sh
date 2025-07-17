@@ -132,15 +132,15 @@ DATA_ISSUER=$(jq -n --arg pem "$PEM_ISSUER" '{
             "serviceEndpoints":[
               {
                  "type": "IssuerService",
-                 "serviceEndpoint": "http://dataspace-issuer-service:10012/api/issuance/v1alpha/participants/ZGlkOndlYjpkYXRhc3BhY2UtaXNzdWVyLXNlcnZpY2UlM0ExMDAxNjppc3N1ZXI=",
+                 "serviceEndpoint": "http://dataspace-issuer-service.mvd.svc.cluster.local:10012/api/issuance/v1alpha/participants/ZGlkOndlYjpkYXRhc3BhY2UtaXNzdWVyLXNlcnZpY2UubXZkLnN2Yy5jbHVzdGVyLmxvY2FsJTNBMTAwMTY6aXNzdWVy",
                  "id": "issuer-service-1"
               }
             ],
             "active": true,
-            "participantId": "did:web:dataspace-issuer-service%3A10016:issuer",
-            "did": "did:web:dataspace-issuer-service%3A10016:issuer",
+            "participantId": "did:web:dataspace-issuer-service.mvd.svc.cluster.local%3A10016:issuer",
+            "did": "did:web:dataspace-issuer-service.mvd.svc.cluster.local%3A10016:issuer",
             "key":{
-                "keyId": "did:web:dataspace-issuer-service%3A10016:issuer#key-1",
+                "keyId": "did:web:dataspace-issuer-service.mvd.svc.cluster.local%3A10016:issuer#key-1",
                 "privateKeyAlias": "key-1",
                 "keyGeneratorParams":{
                   "algorithm": "EdDSA"
