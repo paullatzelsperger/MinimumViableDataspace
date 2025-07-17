@@ -54,7 +54,7 @@ DATA_CONSUMER=$(jq -n --arg url "$CONSUMER_CONTROLPLANE_SERVICE_URL" --arg ihurl
            "serviceEndpoints":[
              {
                 "type": "CredentialService",
-                "serviceEndpoint": "\($ihurl)/api/credentials/v1/participants/ZGlkOndlYjpjb25zdW1lci1pZGVudGl0eWh1YiUzQTcwODM6Y29uc3VtZXI=",
+                "serviceEndpoint": "\($ihurl)/api/credentials/v1/participants/ZGlkOndlYjpjb25zdW1lci1pZGVudGl0eWh1Yi5tdmQuc3ZjLmNsdXN0ZXIubG9jYWwlM0E3MDgzOmNvbnN1bWVy",
                 "id": "consumer-credentialservice-1"
              },
              {
@@ -64,11 +64,11 @@ DATA_CONSUMER=$(jq -n --arg url "$CONSUMER_CONTROLPLANE_SERVICE_URL" --arg ihurl
              }
            ],
            "active": true,
-           "participantId": "did:web:consumer-identityhub%3A7083:consumer",
-           "did": "did:web:consumer-identityhub%3A7083:consumer",
+           "participantId": "did:web:consumer-identityhub.mvd.svc.cluster.local%3A7083:consumer",
+           "did": "did:web:consumer-identityhub.mvd.svc.cluster.local%3A7083:consumer",
            "key":{
-               "keyId": "did:web:consumer-identityhub%3A7083:consumer#key-1",
-               "privateKeyAlias": "did:web:consumer-identityhub%3A7083:consumer#key-1",
+               "keyId": "did:web:consumer-identityhub.mvd.svc.cluster.local%3A7083:consumer#key-1",
+               "privateKeyAlias": "did:web:consumer-identityhub.mvd.svc.cluster.local%3A7083:consumer#key-1",
                "keyGeneratorParams":{
                   "algorithm": "EC"
                }
@@ -156,7 +156,7 @@ curl -s --location 'http://127.0.0.1/issuer/cs/api/identity/v1alpha/participants
 newman run \
   --folder "Seed Issuer SQL" \
   --env-var "ISSUER_ADMIN_URL=http://127.0.0.1/issuer/ad" \
-  --env-var "CONSUMER_ID=did:web:consumer-identityhub%3A7083:consumer" \
+  --env-var "CONSUMER_ID=did:web:consumer-identityhub.mvd.svc.cluster.local%3A7083:consumer" \
   --env-var "CONSUMER_NAME=MVD Consumer Participant" \
   --env-var "PROVIDER_ID=did:web:provider-identityhub.mvd.svc.cluster.local%3A7083:provider" \
   --env-var "PROVIDER_NAME=MVD Provider Participant" \
