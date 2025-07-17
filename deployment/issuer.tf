@@ -20,8 +20,8 @@ module "dataspace-issuer" {
     password = "issuer"
     url      = "jdbc:postgresql://${module.dataspace-issuer-postgres.database-url}/issuer"
   }
-  vault-url = "http://issuer-vault.${kubernetes_namespace.ns.metadata.0.name}.svc.cluster.local:8200"
-  namespace = kubernetes_namespace.ns.metadata.0.name
+  vault-url = "http://issuer-vault.${kubernetes_namespace.ns-issuer.metadata.0.name}.svc.cluster.local:8200"
+  namespace = kubernetes_namespace.ns-issuer.metadata.0.name
   useSVE    = var.useSVE
 }
 
@@ -29,7 +29,7 @@ module "dataspace-issuer" {
 module "issuer-vault" {
   source            = "./modules/vault"
   humanReadableName = "issuer-vault"
-  namespace         = kubernetes_namespace.ns.metadata.0.name
+  namespace         = kubernetes_namespace.ns-issuer.metadata.0.name
 }
 
 # Postgres database for the consumer
@@ -38,14 +38,14 @@ module "dataspace-issuer-postgres" {
   source           = "./modules/postgres"
   instance-name    = "issuer"
   init-sql-configs = ["issuer-initdb-config"]
-  namespace        = kubernetes_namespace.ns.metadata.0.name
+  namespace        = kubernetes_namespace.ns-issuer.metadata.0.name
 }
 
 # DB initialization for the EDC database
 resource "kubernetes_config_map" "issuer-initdb-config" {
   metadata {
     name      = "issuer-initdb-config"
-    namespace = kubernetes_namespace.ns.metadata.0.name
+    namespace = kubernetes_namespace.ns-issuer.metadata.0.name
   }
   data = {
     "issuer-initdb-config.sql" = <<-EOT

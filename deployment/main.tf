@@ -44,14 +44,8 @@ provider "helm" {
   }
 }
 
-resource "kubernetes_namespace" "ns" {
+resource "kubernetes_namespace" "ns-issuer" {
   metadata {
-    name = "mvd"
+    name = "mvd-issuer"
   }
 }
-#
-# resource "kubernetes_namespace" "ns-dataplane" {
-#   metadata {
-#     name = "mvd-data"
-#   }
-# }
