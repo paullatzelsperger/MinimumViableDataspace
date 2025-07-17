@@ -45,7 +45,7 @@ module "consumer-identityhub" {
     password = "consumer"
     url      = "jdbc:postgresql://${module.consumer-postgres.database-url}/consumer"
   }
-  namespace = kubernetes_namespace.ns-consumer-ctrl.metadata.0.name
+  namespace = kubernetes_namespace.ns-consumer-security.metadata.0.name
   useSVE    = var.useSVE
 }
 
@@ -87,6 +87,12 @@ resource "kubernetes_config_map" "postgres-initdb-config-consumer" {
 resource "kubernetes_namespace" "ns-consumer-ctrl" {
   metadata {
     name = "mvd-consumer-ctrl"
+  }
+}
+
+resource "kubernetes_namespace" "ns-consumer-security" {
+  metadata {
+    name = "mvd-consumer-security"
   }
 }
 

@@ -39,7 +39,7 @@ import static org.eclipse.edc.demo.tests.TestConstants.TEST_TIMEOUT_DURATION;
 public class CredentialIssuanceEndToEndTest {
 
     private static final String CONSUMER_IDENTITYHUB_IDENTITY_URL = "http://127.0.0.1/consumer/cs/";
-    private static final String PARTICIPANT_CONTEXT_ID = "did:web:consumer-identityhub.mvd-consumer-ctrl.svc.cluster.local%3A7083:consumer";
+    private static final String PARTICIPANT_CONTEXT_ID = "did:web:consumer-identityhub.mvd-consumer-security.svc.cluster.local%3A7083:consumer";
     private static final String ISSUER_DID = "did:web:dataspace-issuer-service.mvd-issuer.svc.cluster.local%3A10016:issuer";
     private static final String HOLDER_PID = UUID.randomUUID().toString();
 
