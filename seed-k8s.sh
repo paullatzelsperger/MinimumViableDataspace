@@ -87,14 +87,14 @@ echo
 echo "Create provider participant context in IdentityHub"
 
 PROVIDER_CONTROLPLANE_SERVICE_URL="http://provider-catalog-server-controlplane.mvd-provider-ctrl.svc.cluster.local:8082"
-PROVIDER_IDENTITYHUB_URL="http://provider-identityhub.mvd-provider-ctrl.svc.cluster.local:7082"
+PROVIDER_IDENTITYHUB_URL="http://provider-identityhub.mvd-provider-security.svc.cluster.local:7082"
 
 DATA_PROVIDER=$(jq -n --arg url "$PROVIDER_CONTROLPLANE_SERVICE_URL" --arg ihurl "$PROVIDER_IDENTITYHUB_URL" '{
            "roles":[],
            "serviceEndpoints":[
              {
                 "type": "CredentialService",
-                "serviceEndpoint": "\($ihurl)/api/credentials/v1/participants/ZGlkOndlYjpwcm92aWRlci1pZGVudGl0eWh1Yi5tdmQtcHJvdmlkZXItY3RybC5zdmMuY2x1c3Rlci5sb2NhbCUzQTcwODM6cHJvdmlkZXI=",
+                "serviceEndpoint": "\($ihurl)/api/credentials/v1/participants/ZGlkOndlYjpwcm92aWRlci1pZGVudGl0eWh1Yi5tdmQtcHJvdmlkZXItc2VjdXJpdHkuc3ZjLmNsdXN0ZXIubG9jYWwlM0E3MDgzOnByb3ZpZGVy",
                 "id": "provider-credentialservice-1"
              },
              {
@@ -104,11 +104,11 @@ DATA_PROVIDER=$(jq -n --arg url "$PROVIDER_CONTROLPLANE_SERVICE_URL" --arg ihurl
              }
            ],
            "active": true,
-           "participantId": "did:web:provider-identityhub.mvd-provider-ctrl.svc.cluster.local%3A7083:provider",
-           "did": "did:web:provider-identityhub.mvd-provider-ctrl.svc.cluster.local%3A7083:provider",
+           "participantId": "did:web:provider-identityhub.mvd-provider-security.svc.cluster.local%3A7083:provider",
+           "did": "did:web:provider-identityhub.mvd-provider-security.svc.cluster.local%3A7083:provider",
            "key":{
-               "keyId": "did:web:provider-identityhub.mvd-provider-ctrl.svc.cluster.local%3A7083:provider#key-1",
-               "privateKeyAlias": "did:web:provider-identityhub.mvd-provider-ctrl.svc.cluster.local%3A7083:provider#key-1",
+               "keyId": "did:web:provider-identityhub.mvd-provider-security.svc.cluster.local%3A7083:provider#key-1",
+               "privateKeyAlias": "did:web:provider-identityhub.mvd-provider-security.svc.cluster.local%3A7083:provider#key-1",
                "keyGeneratorParams":{
                   "algorithm": "EC"
                }
@@ -158,6 +158,6 @@ newman run \
   --env-var "ISSUER_ADMIN_URL=http://127.0.0.1/issuer/ad" \
   --env-var "CONSUMER_ID=did:web:consumer-identityhub.mvd-consumer-security.svc.cluster.local%3A7083:consumer" \
   --env-var "CONSUMER_NAME=MVD Consumer Participant" \
-  --env-var "PROVIDER_ID=did:web:provider-identityhub.mvd-provider-ctrl.svc.cluster.local%3A7083:provider" \
+  --env-var "PROVIDER_ID=did:web:provider-identityhub.mvd-provider-security.svc.cluster.local%3A7083:provider" \
   --env-var "PROVIDER_NAME=MVD Provider Participant" \
   ./deployment/postman/MVD.postman_collection.json

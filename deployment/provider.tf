@@ -58,7 +58,7 @@ module "provider-identityhub" {
   participantId = var.provider-did
   vault-url     = "http://provider-vault.${kubernetes_namespace.ns-provider-ctrl.metadata.0.name}.svc.cluster.local:8200"
   service-name  = "provider"
-  namespace     = kubernetes_namespace.ns-provider-ctrl.metadata.0.name
+  namespace     = kubernetes_namespace.ns-provider-security.metadata.0.name
 
   database = {
     user     = "identity"
@@ -167,6 +167,12 @@ resource "kubernetes_config_map" "postgres-initdb-config-ih" {
 resource "kubernetes_namespace" "ns-provider-ctrl" {
   metadata {
     name = "mvd-provider-ctrl"
+  }
+}
+
+resource "kubernetes_namespace" "ns-provider-security" {
+  metadata {
+    name = "mvd-provider-security"
   }
 }
 
