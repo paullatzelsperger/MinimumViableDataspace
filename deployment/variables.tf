@@ -22,7 +22,7 @@ variable "consumer-did" {
 }
 
 variable "provider-did" {
-  default = "did:web:provider-identityhub.mvd.svc.cluster.local%3A7083:provider"
+  default = "did:web:provider-identityhub.mvd-provider-ctrl.svc.cluster.local%3A7083:provider"
 }
 
 variable "useSVE" {

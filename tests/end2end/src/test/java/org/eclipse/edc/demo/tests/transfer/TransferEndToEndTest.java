@@ -59,9 +59,9 @@ public class TransferEndToEndTest {
     // Catalog Query API URL of the consumer connector, goes through ingress controller
     private static final String CONSUMER_CATALOG_URL = "http://127.0.0.1/consumer/fc";
     // DSP service URL of the provider, not reachable outside the cluster
-    private static final String PROVIDER_DSP_URL = "http://provider-qna-controlplane.mvd.svc.cluster.local:8082";
+    private static final String PROVIDER_DSP_URL = "http://provider-qna-controlplane.mvd-provider-ctrl.svc.cluster.local:8082";
     // DID of the provider company
-    private static final String PROVIDER_ID = "did:web:provider-identityhub.mvd.svc.cluster.local%3A7083:provider";
+    private static final String PROVIDER_ID = "did:web:provider-identityhub.mvd-provider-ctrl.svc.cluster.local%3A7083:provider";
     // public API endpoint of the provider-qna connector, goes through the ingress controller
     private static final String PROVIDER_PUBLIC_URL = "http://127.0.0.1/provider-qna/public";
     private static final String PROVIDER_MANAGEMENT_URL = "http://127.0.0.1/provider-qna/cp";

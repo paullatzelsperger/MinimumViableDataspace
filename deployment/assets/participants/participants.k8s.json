@@ -1,4 +1,4 @@
 {
   "consumer-corp": "did:web:consumer-identityhub.mvd-consumer-ctrl.svc.cluster.local%3A7083:consumer",
-  "provider-corp": "did:web:provider-identityhub.mvd.svc.cluster.local%3A7083:provider"
+  "provider-corp": "did:web:provider-identityhub.mvd-provider-ctrl.svc.cluster.local%3A7083:provider"
 }
