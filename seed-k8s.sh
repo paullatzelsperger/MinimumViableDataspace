@@ -47,14 +47,14 @@ API_KEY="c3VwZXItdXNlcg==.c3VwZXItc2VjcmV0LWtleQo="
 echo
 echo
 echo "Create consumer participant context in IdentityHub"
-CONSUMER_CONTROLPLANE_SERVICE_URL="http://consumer-controlplane.mvd.svc.cluster.local:8082"
-CONSUMER_IDENTITYHUB_URL="http://consumer-identityhub.mvd.svc.cluster.local:7082"
+CONSUMER_CONTROLPLANE_SERVICE_URL="http://consumer-controlplane.mvd-consumer-ctrl.svc.cluster.local:8082"
+CONSUMER_IDENTITYHUB_URL="http://consumer-identityhub.mvd-consumer-ctrl.svc.cluster.local:7082"
 DATA_CONSUMER=$(jq -n --arg url "$CONSUMER_CONTROLPLANE_SERVICE_URL" --arg ihurl "$CONSUMER_IDENTITYHUB_URL" '{
            "roles":[],
            "serviceEndpoints":[
              {
                 "type": "CredentialService",
-                "serviceEndpoint": "\($ihurl)/api/credentials/v1/participants/ZGlkOndlYjpjb25zdW1lci1pZGVudGl0eWh1Yi5tdmQuc3ZjLmNsdXN0ZXIubG9jYWwlM0E3MDgzOmNvbnN1bWVy",
+                "serviceEndpoint": "\($ihurl)/api/credentials/v1/participants/ZGlkOndlYjpjb25zdW1lci1pZGVudGl0eWh1Yi5tdmQtY29uc3VtZXItY3RybC5zdmMuY2x1c3Rlci5sb2NhbCUzQTcwODM6Y29uc3VtZXI=",
                 "id": "consumer-credentialservice-1"
              },
              {
@@ -64,11 +64,11 @@ DATA_CONSUMER=$(jq -n --arg url "$CONSUMER_CONTROLPLANE_SERVICE_URL" --arg ihurl
              }
            ],
            "active": true,
-           "participantId": "did:web:consumer-identityhub.mvd.svc.cluster.local%3A7083:consumer",
-           "did": "did:web:consumer-identityhub.mvd.svc.cluster.local%3A7083:consumer",
+           "participantId": "did:web:consumer-identityhub.mvd-consumer-ctrl.svc.cluster.local%3A7083:consumer",
+           "did": "did:web:consumer-identityhub.mvd-consumer-ctrl.svc.cluster.local%3A7083:consumer",
            "key":{
-               "keyId": "did:web:consumer-identityhub.mvd.svc.cluster.local%3A7083:consumer#key-1",
-               "privateKeyAlias": "did:web:consumer-identityhub.mvd.svc.cluster.local%3A7083:consumer#key-1",
+               "keyId": "did:web:consumer-identityhub.mvd-consumer-ctrl.svc.cluster.local%3A7083:consumer#key-1",
+               "privateKeyAlias": "did:web:consumer-identityhub.mvd-consumer-ctrl.svc.cluster.local%3A7083:consumer#key-1",
                "keyGeneratorParams":{
                   "algorithm": "EC"
                }
@@ -156,7 +156,7 @@ curl -s --location 'http://127.0.0.1/issuer/cs/api/identity/v1alpha/participants
 newman run \
   --folder "Seed Issuer SQL" \
   --env-var "ISSUER_ADMIN_URL=http://127.0.0.1/issuer/ad" \
-  --env-var "CONSUMER_ID=did:web:consumer-identityhub.mvd.svc.cluster.local%3A7083:consumer" \
+  --env-var "CONSUMER_ID=did:web:consumer-identityhub.mvd-consumer-ctrl.svc.cluster.local%3A7083:consumer" \
   --env-var "CONSUMER_NAME=MVD Consumer Participant" \
   --env-var "PROVIDER_ID=did:web:provider-identityhub.mvd.svc.cluster.local%3A7083:provider" \
   --env-var "PROVIDER_NAME=MVD Provider Participant" \

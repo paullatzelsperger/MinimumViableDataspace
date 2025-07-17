@@ -18,7 +18,7 @@
 #
 
 variable "consumer-did" {
-  default = "did:web:consumer-identityhub.mvd.svc.cluster.local%3A7083:consumer"
+  default = "did:web:consumer-identityhub.mvd-consumer-ctrl.svc.cluster.local%3A7083:consumer"
 }
 
 variable "provider-did" {

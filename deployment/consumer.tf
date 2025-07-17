@@ -24,9 +24,9 @@ module "consumer-connector" {
     password = "consumer"
     url      = "jdbc:postgresql://${module.consumer-postgres.database-url}/consumer"
   }
-  vault-url           = "http://consumer-vault.${kubernetes_namespace.ns.metadata.0.name}.svc.cluster.local:8200"
-  namespace           = kubernetes_namespace.ns.metadata.0.name
-  namespace-dataplane = kubernetes_namespace.ns-dataplane.metadata.0.name
+  vault-url           = "http://consumer-vault.${kubernetes_namespace.ns-consumer-ctrl.metadata.0.name}.svc.cluster.local:8200"
+  namespace           = kubernetes_namespace.ns-consumer-ctrl.metadata.0.name
+  namespace-dataplane = kubernetes_namespace.ns-consumer-data.metadata.0.name
   sts-token-url       = "${module.consumer-identityhub.sts-token-url}/token"
   useSVE              = var.useSVE
 }
@@ -38,14 +38,14 @@ module "consumer-identityhub" {
   credentials-dir   = dirname("./assets/credentials/k8s/consumer/")
   humanReadableName = "consumer-identityhub"
   participantId     = var.consumer-did
-  vault-url         = "http://consumer-vault.${kubernetes_namespace.ns.metadata.0.name}.svc.cluster.local:8200"
+  vault-url         = "http://consumer-vault.${kubernetes_namespace.ns-consumer-ctrl.metadata.0.name}.svc.cluster.local:8200"
   service-name      = "consumer"
   database = {
     user     = "consumer"
     password = "consumer"
     url      = "jdbc:postgresql://${module.consumer-postgres.database-url}/consumer"
   }
-  namespace = kubernetes_namespace.ns.metadata.0.name
+  namespace = kubernetes_namespace.ns-consumer-ctrl.metadata.0.name
   useSVE    = var.useSVE
 }
 
@@ -54,7 +54,7 @@ module "consumer-identityhub" {
 module "consumer-vault" {
   source            = "./modules/vault"
   humanReadableName = "consumer-vault"
-  namespace         = kubernetes_namespace.ns.metadata.0.name
+  namespace         = kubernetes_namespace.ns-consumer-ctrl.metadata.0.name
 }
 
 # Postgres database for the consumer
@@ -63,14 +63,14 @@ module "consumer-postgres" {
   source           = "./modules/postgres"
   instance-name    = "consumer"
   init-sql-configs = ["consumer-initdb-config"]
-  namespace        = kubernetes_namespace.ns.metadata.0.name
+  namespace        = kubernetes_namespace.ns-consumer-ctrl.metadata.0.name
 }
 
 # DB initialization for the EDC database
 resource "kubernetes_config_map" "postgres-initdb-config-consumer" {
   metadata {
     name      = "consumer-initdb-config"
-    namespace = kubernetes_namespace.ns.metadata.0.name
+    namespace = kubernetes_namespace.ns-consumer-ctrl.metadata.0.name
   }
   data = {
     "consumer-initdb-config.sql" = <<-EOT
@@ -80,5 +80,18 @@ resource "kubernetes_config_map" "postgres-initdb-config-consumer" {
 
 
       EOT
+  }
+}
+
+
+resource "kubernetes_namespace" "ns-consumer-ctrl" {
+  metadata {
+    name = "mvd-consumer-ctrl"
+  }
+}
+
+resource "kubernetes_namespace" "ns-consumer-data" {
+  metadata {
+    name = "mvd-consumer-data"
   }
 }
