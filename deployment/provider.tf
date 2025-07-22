@@ -63,9 +63,20 @@ module "provider-identityhub" {
   database = {
     user     = "identity"
     password = "identity"
-    url      = "jdbc:postgresql://${module.provider-postgres.database-url}/identity"
+    url      = "jdbc:postgresql://${module.provider-identityhub-postgres.database-url}/identity"
   }
   useSVE = var.useSVE
+}
+
+# Postgres database for the consumer
+module "provider-identityhub-postgres" {
+  depends_on    = [kubernetes_config_map.postgres-initdb-config-cs]
+  source        = "./modules/postgres"
+  instance-name = "provider-identityhub"
+  init-sql-configs = [
+    kubernetes_config_map.postgres-initdb-config-ih.metadata[0].name,
+  ]
+  namespace = kubernetes_namespace.ns-provider-security.metadata.0.name
 }
 
 # Catalog server runtime
@@ -100,7 +111,6 @@ module "provider-postgres" {
     kubernetes_config_map.postgres-initdb-config-cs.metadata[0].name,
     kubernetes_config_map.postgres-initdb-config-pqna.metadata[0].name,
     kubernetes_config_map.postgres-initdb-config-pm.metadata[0].name,
-    kubernetes_config_map.postgres-initdb-config-ih.metadata[0].name,
   ]
   namespace = kubernetes_namespace.ns-provider-ctrl.metadata.0.name
 }
@@ -153,7 +163,7 @@ resource "kubernetes_config_map" "postgres-initdb-config-pm" {
 resource "kubernetes_config_map" "postgres-initdb-config-ih" {
   metadata {
     name      = "ih-initdb-config"
-    namespace = kubernetes_namespace.ns-provider-ctrl.metadata.0.name
+    namespace = kubernetes_namespace.ns-provider-security.metadata.0.name
   }
   data = {
     "ih-initdb-config.sql" = <<-EOT

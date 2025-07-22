@@ -75,11 +75,25 @@ DATA_CONSUMER=$(jq -n --arg url "$CONSUMER_CONTROLPLANE_SERVICE_URL" --arg ihurl
            }
        }')
 
-curl --location "http://127.0.0.1/consumer/cs/api/identity/v1alpha/participants/" \
+response=$(curl --location "http://127.0.0.1/consumer/cs/api/identity/v1alpha/participants/" \
 --header 'Content-Type: application/json' \
 --header "x-api-key: $API_KEY" \
---data "$DATA_CONSUMER"
+--data "$DATA_CONSUMER")
 
+cid=$(echo "$response" | jq -r '.clientId')
+cs=$(echo "$response" | jq -r '.clientSecret')
+
+# Add the clientId and clientSecret to the vault
+curl -X POST --location 'http://127.0.0.1/consumer/cp/api/management/v3/secrets' \
+--header 'Content-Type: application/json' \
+--header "X-Api-Key: password" \
+--data-raw '{
+    "@context": [
+        "https://w3id.org/edc/connector/management/v0.0.1"
+    ],
+    "@id": "'"$cid"'-sts-client-secret",
+    "value": "'"$cs"'"
+    }'
 
 # add provider participant
 echo

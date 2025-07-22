@@ -31,22 +31,40 @@ module "consumer-connector" {
   useSVE              = var.useSVE
 }
 
+# Postgres database for the consumer connector
+module "consumer-postgres" {
+  depends_on       = [kubernetes_config_map.postgres-initdb-config-consumer]
+  source           = "./modules/postgres"
+  instance-name    = "consumer"
+  init-sql-configs = ["consumer-initdb-config"]
+  namespace        = kubernetes_namespace.ns-consumer-ctrl.metadata.0.name
+}
+
 # consumer identity hub
 module "consumer-identityhub" {
-  depends_on        = [module.consumer-vault]
+  depends_on        = [module.consumer-identityhub-vault]
   source            = "./modules/identity-hub"
   credentials-dir   = dirname("./assets/credentials/k8s/consumer/")
   humanReadableName = "consumer-identityhub"
   participantId     = var.consumer-did
-  vault-url         = "http://consumer-vault.${kubernetes_namespace.ns-consumer-ctrl.metadata.0.name}.svc.cluster.local:8200"
+  vault-url         = "http://consumer-identityhub-vault.${kubernetes_namespace.ns-consumer-security.metadata.0.name}.svc.cluster.local:8200"
   service-name      = "consumer"
   database = {
     user     = "consumer"
     password = "consumer"
-    url      = "jdbc:postgresql://${module.consumer-postgres.database-url}/consumer"
+    url      = "jdbc:postgresql://${module.consumer-identityhub-postgres.database-url}/consumer"
   }
   namespace = kubernetes_namespace.ns-consumer-security.metadata.0.name
   useSVE    = var.useSVE
+}
+
+# Postgres database for the consumer identity hub
+module "consumer-identityhub-postgres" {
+  depends_on       = [kubernetes_config_map.postgres-ih-initdb-config-consumer]
+  source           = "./modules/postgres"
+  instance-name    = "consumer-identityhub"
+  init-sql-configs = ["consumer-ih-initdb-config"]
+  namespace        = kubernetes_namespace.ns-consumer-security.metadata.0.name
 }
 
 
@@ -57,14 +75,13 @@ module "consumer-vault" {
   namespace         = kubernetes_namespace.ns-consumer-ctrl.metadata.0.name
 }
 
-# Postgres database for the consumer
-module "consumer-postgres" {
-  depends_on       = [kubernetes_config_map.postgres-initdb-config-consumer]
-  source           = "./modules/postgres"
-  instance-name    = "consumer"
-  init-sql-configs = ["consumer-initdb-config"]
-  namespace        = kubernetes_namespace.ns-consumer-ctrl.metadata.0.name
+# consumer identityhub vault
+module "consumer-identityhub-vault" {
+  source            = "./modules/vault"
+  humanReadableName = "consumer-identityhub-vault"
+  namespace         = kubernetes_namespace.ns-consumer-security.metadata.0.name
 }
+
 
 # DB initialization for the EDC database
 resource "kubernetes_config_map" "postgres-initdb-config-consumer" {
@@ -74,6 +91,23 @@ resource "kubernetes_config_map" "postgres-initdb-config-consumer" {
   }
   data = {
     "consumer-initdb-config.sql" = <<-EOT
+        CREATE USER consumer WITH ENCRYPTED PASSWORD 'consumer' SUPERUSER;
+        CREATE DATABASE consumer;
+        \c consumer consumer
+
+
+      EOT
+  }
+}
+
+# DB initialization for the Identity Hub database
+resource "kubernetes_config_map" "postgres-ih-initdb-config-consumer" {
+  metadata {
+    name      = "consumer-ih-initdb-config"
+    namespace = kubernetes_namespace.ns-consumer-security.metadata.0.name
+  }
+  data = {
+    "consumer-ih-initdb-config.sql" = <<-EOT
         CREATE USER consumer WITH ENCRYPTED PASSWORD 'consumer' SUPERUSER;
         CREATE DATABASE consumer;
         \c consumer consumer

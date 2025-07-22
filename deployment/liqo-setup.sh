@@ -66,25 +66,25 @@ do
         --kubeconfig mvd-origin
 done
 
-# make all services from the ctrl cluster in the other clusters, so that those apps can access the controlplane, vault, postgres etc.
-echo "Mirror services from mvd-consumer-ctrl to -data and -security"
-liqoctl offload namespace "mvd-consumer-ctrl" \
-  --namespace-mapping-strategy EnforceSameName \
-  --pod-offloading-strategy Local \
-  --selector "topology.liqo.io/type=mvd-consumer-data" \
-  --selector "topology.liqo.io/type=mvd-consumer-security" \
-  --selector "topology.liqo.io/type=mvd-consumer-ctrl" \
-  --kubeconfig mvd-origin
-
-echo "Mirror services from mvd-provider-ctrl to -data and -security"
-liqoctl offload namespace "mvd-provider-ctrl" \
-    --namespace-mapping-strategy EnforceSameName \
-    --pod-offloading-strategy Local \
-    --selector "topology.liqo.io/type=mvd-provider-data-qna" \
-    --selector "topology.liqo.io/type=mvd-provider-data-manufacturing" \
-    --selector "topology.liqo.io/type=mvd-provider-security" \
-    --selector "topology.liqo.io/type=mvd-provider-ctrl" \
-    --kubeconfig mvd-origin
+## make all services from the ctrl cluster in the other clusters, so that those apps can access the controlplane, vault, postgres etc.
+#echo "Mirror services from mvd-consumer-ctrl to -data and -security"
+#liqoctl offload namespace "mvd-consumer-ctrl" \
+#  --namespace-mapping-strategy EnforceSameName \
+#  --pod-offloading-strategy Local \
+#  --selector "topology.liqo.io/type=mvd-consumer-data" \
+#  --selector "topology.liqo.io/type=mvd-consumer-security" \
+#  --selector "topology.liqo.io/type=mvd-consumer-ctrl" \
+#  --kubeconfig mvd-origin
+#
+#echo "Mirror services from mvd-provider-ctrl to -data and -security"
+#liqoctl offload namespace "mvd-provider-ctrl" \
+#    --namespace-mapping-strategy EnforceSameName \
+#    --pod-offloading-strategy Local \
+#    --selector "topology.liqo.io/type=mvd-provider-data-qna" \
+#    --selector "topology.liqo.io/type=mvd-provider-data-manufacturing" \
+#    --selector "topology.liqo.io/type=mvd-provider-security" \
+#    --selector "topology.liqo.io/type=mvd-provider-ctrl" \
+#    --kubeconfig mvd-origin
 
 sleep 5
 
