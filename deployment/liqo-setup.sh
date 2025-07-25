@@ -20,50 +20,52 @@ function load_images() {
 
 # create origin cluster
 echo "Preparing origin cluster"
-kind create cluster -n mvd-origin --config kind.config.yaml --kubeconfig=mvd-origin
-kubectl apply -f https://kind.sigs.k8s.io/examples/ingress/deploy-ingress-nginx.yaml --kubeconfig mvd-origin
+kind create cluster -n origin --config kind.config.yaml --kubeconfig=.kube/origin.config
+kubectl apply -f https://kind.sigs.k8s.io/examples/ingress/deploy-ingress-nginx.yaml --kubeconfig .kube/origin.config
 echo "Waiting for cluster to be ready..."
 kubectl wait --namespace ingress-nginx \
             --for=condition=ready pod \
             --selector=app.kubernetes.io/component=controller \
             --timeout=90s \
-            --kubeconfig mvd-origin
-load_images mvd-origin > /dev/null 2>&1
-liqoctl install kind --cluster-id mvd-origin --cluster-labels=topology.liqo.io/type=origin --kubeconfig ./mvd-origin
+            --kubeconfig .kube/origin.config
+load_images origin > /dev/null 2>&1
+liqoctl install kind --cluster-id mvd-origin --cluster-labels=topology.liqo.io/type=origin --kubeconfig ./kube/origin.config
 
 # create remote clusters
-remote_clusters=("mvd-consumer-ctrl" "mvd-consumer-data" "mvd-consumer-security" "mvd-issuer" "mvd-provider-ctrl" "mvd-provider-security" "mvd-provider-data-qna" "mvd-provider-data-manufacturing")
+#remote_clusters=("consumer-ctrl" "consumer-security" "consumer-data""issuer" "provider-ctrl" "provider-security" "provider-data-qna" "provider-data-manufacturing")
+remote_clusters=("consumer-security" "consumer-data")
 
 for cluster in "${remote_clusters[@]}"
 do
     echo "Create remote cluster $cluster"
-    kind create cluster -n "$cluster" --config remote-cluster.yaml --kubeconfig="$cluster"
+    kind create cluster -n "$cluster" --config remote-cluster.yaml --kubeconfig="./.kube/$cluster.config"
     load_images $cluster > /dev/null 2>&1
 done
 
 # Deploy MVD
 echo "Deploy MVD"
+tofu init -reconfigure
 tofu apply -auto-approve
 
 for cluster in "${remote_clusters[@]}"
 do
     # install liqo agent
       echo "Installing LIQO agent on cluster $cluster"
-      liqoctl install kind --cluster-id "$cluster" --cluster-labels=topology.liqo.io/type="$cluster" --kubeconfig "./$cluster"
+      liqoctl install kind --cluster-id "$cluster" --cluster-labels=topology.liqo.io/type="$cluster" --kubeconfig "./.kube/$cluster.config"
 
       # peer remote cluster with origin cluster
-      echo "peering cluster $cluster with mvd-origin"
-      liqoctl peer --remote-kubeconfig $cluster --gw-server-service-type NodePort --kubeconfig mvd-origin
+      echo "peering cluster $cluster with origin"
+      liqoctl peer --remote-kubeconfig $cluster --gw-server-service-type NodePort --kubeconfig ./kube/origin.config
 
       sleep 5
 
       # offload pods to their respective clusters
-      echo "Offload namespace $cluster to cluster $cluster"
-      liqoctl offload namespace $cluster \
-        --namespace-mapping-strategy EnforceSameName \
-        --pod-offloading-strategy Remote \
-        --selector "topology.liqo.io/type=$cluster" \
-        --kubeconfig mvd-origin
+#      echo "Offload namespace $cluster to cluster $cluster"
+#      liqoctl offload namespace $cluster \
+#        --namespace-mapping-strategy EnforceSameName \
+#        --pod-offloading-strategy Remote \
+#        --selector "topology.liqo.io/type=$cluster" \
+#        --kubeconfig mvd-origin
 done
 
 ## make all services from the ctrl cluster in the other clusters, so that those apps can access the controlplane, vault, postgres etc.
