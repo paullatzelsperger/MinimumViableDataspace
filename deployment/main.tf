@@ -35,12 +35,12 @@ terraform {
 }
 
 provider "kubernetes" {
-  config_path = local.cluster_origin_file
+  config_path = "${path.root}/.kube/staging.config"
 }
 
 provider "helm" {
   kubernetes = {
-    config_path = local.cluster_origin_file
+    config_path = "${path.root}/.kube/staging.config"
   }
 }
 
@@ -48,10 +48,4 @@ resource "kubernetes_namespace" "ns-issuer" {
   metadata {
     name = "mvd-issuer"
   }
-}
-
-locals {
-  cluster_origin_file            = "${path.root}/.kube/origin.config"
-  cluster_remote_file            = "${path.root}/.kube/remote.config"
-  cluster_consumer_security_file = "${path.root}/.kube/consumer-security.config"
 }

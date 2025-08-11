@@ -13,6 +13,8 @@
 #
 #
 
+set -euxo pipefail
+
 function load_images() {
     local cluster_name=$1
     kind load docker-image controlplane:latest identity-hub:latest catalog-server:latest dataplane:latest issuerservice:latest -n "$cluster_name"
@@ -20,32 +22,32 @@ function load_images() {
 
 # create origin cluster
 echo "Preparing origin cluster"
-kind create cluster -n origin --config kind.config.yaml --kubeconfig=.kube/origin.config
-kubectl apply -f https://kind.sigs.k8s.io/examples/ingress/deploy-ingress-nginx.yaml --kubeconfig .kube/origin.config
-echo "Waiting for cluster to be ready..."
-kubectl wait --namespace ingress-nginx \
-            --for=condition=ready pod \
-            --selector=app.kubernetes.io/component=controller \
-            --timeout=90s \
-            --kubeconfig .kube/origin.config
-load_images origin > /dev/null 2>&1
-liqoctl install kind --cluster-id mvd-origin --cluster-labels=topology.liqo.io/type=origin --kubeconfig ./kube/origin.config
+kind create cluster -n staging --config kind.config.yaml --kubeconfig=./.kube/staging.config > /dev/null 2>&1
+kubectl apply -f https://kind.sigs.k8s.io/examples/ingress/deploy-ingress-nginx.yaml --kubeconfig ./.kube/staging.config
+
+load_images staging > /dev/null 2>&1
+liqoctl install kind --cluster-id staging --cluster-labels=topology.liqo.io/type=origin --kubeconfig ./.kube/staging.config
 
 # create remote clusters
-#remote_clusters=("consumer-ctrl" "consumer-security" "consumer-data""issuer" "provider-ctrl" "provider-security" "provider-data-qna" "provider-data-manufacturing")
-remote_clusters=("consumer-security" "consumer-data")
+remote_clusters=("consumer-ctrl" "consumer-data" "consumer-security" "mvd-issuer" "provider-ctrl" "provider-security" "provider-data-qna" "provider-data-manufacturing")
 
 for cluster in "${remote_clusters[@]}"
 do
     echo "Create remote cluster $cluster"
-    kind create cluster -n "$cluster" --config remote-cluster.yaml --kubeconfig="./.kube/$cluster.config"
+    kind create cluster -n "$cluster" --config remote-cluster.yaml --kubeconfig="./.kube/$cluster.config" > /dev/null 2>&1
     load_images $cluster > /dev/null 2>&1
 done
 
 # Deploy MVD
 echo "Deploy MVD"
-tofu init -reconfigure
 tofu apply -auto-approve
+
+echo "Waiting for staging cluster to be ready..."
+kubectl wait --namespace ingress-nginx \
+            --for=condition=ready pod \
+            --selector=app.kubernetes.io/component=controller \
+            --timeout=90s \
+            --kubeconfig ./.kube/staging.config
 
 for cluster in "${remote_clusters[@]}"
 do
@@ -54,18 +56,18 @@ do
       liqoctl install kind --cluster-id "$cluster" --cluster-labels=topology.liqo.io/type="$cluster" --kubeconfig "./.kube/$cluster.config"
 
       # peer remote cluster with origin cluster
-      echo "peering cluster $cluster with origin"
-      liqoctl peer --remote-kubeconfig $cluster --gw-server-service-type NodePort --kubeconfig ./kube/origin.config
+      echo "peering cluster $cluster with staging"
+      liqoctl peer --remote-kubeconfig $cluster --gw-server-service-type NodePort --kubeconfig ./.kube/staging.config
 
       sleep 5
 
       # offload pods to their respective clusters
-#      echo "Offload namespace $cluster to cluster $cluster"
-#      liqoctl offload namespace $cluster \
-#        --namespace-mapping-strategy EnforceSameName \
-#        --pod-offloading-strategy Remote \
-#        --selector "topology.liqo.io/type=$cluster" \
-#        --kubeconfig mvd-origin
+      echo "Offload namespace $cluster to cluster $cluster"
+      liqoctl offload namespace $cluster \
+        --namespace-mapping-strategy EnforceSameName \
+        --pod-offloading-strategy Remote \
+        --selector "topology.liqo.io/type=$cluster" \
+        --kubeconfig ./.kube/staging.config
 done
 
 ## make all services from the ctrl cluster in the other clusters, so that those apps can access the controlplane, vault, postgres etc.
@@ -76,7 +78,7 @@ done
 #  --selector "topology.liqo.io/type=mvd-consumer-data" \
 #  --selector "topology.liqo.io/type=mvd-consumer-security" \
 #  --selector "topology.liqo.io/type=mvd-consumer-ctrl" \
-#  --kubeconfig mvd-origin
+#  --kubeconfig staging
 #
 #echo "Mirror services from mvd-provider-ctrl to -data and -security"
 #liqoctl offload namespace "mvd-provider-ctrl" \
@@ -86,17 +88,17 @@ done
 #    --selector "topology.liqo.io/type=mvd-provider-data-manufacturing" \
 #    --selector "topology.liqo.io/type=mvd-provider-security" \
 #    --selector "topology.liqo.io/type=mvd-provider-ctrl" \
-#    --kubeconfig mvd-origin
+#    --kubeconfig staging
 
 sleep 5
 
 # restart offloaded deployments
 echo "restart running deployments for LIQO to take effect"
-kubectl rollout restart deployment -n mvd-consumer-ctrl --kubeconfig mvd-origin
-kubectl rollout restart deployment -n mvd-consumer-data --kubeconfig mvd-origin
-kubectl rollout restart deployment -n mvd-consumer-security --kubeconfig mvd-origin
-kubectl rollout restart deployment -n mvd-provider-ctrl --kubeconfig mvd-origin
-kubectl rollout restart deployment -n mvd-provider-data-qna --kubeconfig mvd-origin
-kubectl rollout restart deployment -n mvd-provider-data-manufacturing --kubeconfig mvd-origin
-kubectl rollout restart deployment -n mvd-provider-security --kubeconfig mvd-origin
-kubectl rollout restart deployment -n mvd-issuer --kubeconfig mvd-origin
+kubectl rollout restart deployment -n mvd-consumer-ctrl --kubeconfig ./.kube/staging.config
+kubectl rollout restart deployment -n mvd-consumer-data --kubeconfig ./.kube/staging.config
+kubectl rollout restart deployment -n mvd-consumer-security --kubeconfig ./.kube/staging.config
+kubectl rollout restart deployment -n mvd-provider-ctrl --kubeconfig ./.kube/staging.config
+kubectl rollout restart deployment -n mvd-provider-data-qna --kubeconfig ./.kube/staging.config
+kubectl rollout restart deployment -n mvd-provider-data-manufacturing --kubeconfig ./.kube/staging.config
+kubectl rollout restart deployment -n mvd-provider-security --kubeconfig ./.kube/staging.config
+kubectl rollout restart deployment -n mvd-issuer --kubeconfig ./.kube/staging.config
