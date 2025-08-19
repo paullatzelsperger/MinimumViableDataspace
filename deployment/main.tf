@@ -35,13 +35,12 @@ terraform {
 }
 
 provider "kubernetes" {
-  config_path = "${path.root}/.kube/staging.config"
+  config_path = pathexpand("~/.kube/vps.config")
 }
 
 provider "helm" {
   kubernetes = {
-    config_path = "${path.root}/.kube/staging.config"
-  }
+  config_path = pathexpand("~/.kube/vps.config") }
 }
 
 resource "kubernetes_namespace" "ns-issuer" {

@@ -14,125 +14,7 @@
 #
 #
 
-## This script must be executed when running the dataspace from IntelliJ. Neglecting to do that will render the connectors
-## inoperable!
-
-## Seed application DATA to both connectors
-echo
-echo
-echo "Seed data to 'provider-qna' and 'provider-manufacturing'"
-for url in 'http://127.0.0.1/provider-manufacturing/cp' 'http://127.0.0.1/provider-qna/cp'
-do
-  newman run \
-    --folder "Seed" \
-    --env-var "HOST=$url" \
-    ./deployment/postman/MVD.postman_collection.json
-done
-
-## Seed linked assets to Catalog Server
-echo
-echo
-echo "Create linked assets on the Catalog Server"
-newman run \
-  --folder "Seed Catalog Server" \
-  --env-var "HOST=http://127.0.0.1/provider-catalog-server/cp" \
-  --env-var "PROVIDER_QNA_DSP_URL=http://provider-qna-controlplane.mvd-provider-ctrl.svc.cluster.local:8082" \
-  --env-var "PROVIDER_MF_DSP_URL=http://provider-manufacturing-controlplane.mvd-provider-ctrl.svc.cluster.local:8082" \
-  ./deployment/postman/MVD.postman_collection.json
-
-## Seed management DATA to identityhubsl
-API_KEY="c3VwZXItdXNlcg==.c3VwZXItc2VjcmV0LWtleQo="
-
-# add consumer participant
-echo
-echo
-echo "Create consumer participant context in IdentityHub"
-CONSUMER_CONTROLPLANE_SERVICE_URL="http://consumer-controlplane.mvd-consumer-ctrl.svc.cluster.local:8082"
-CONSUMER_IDENTITYHUB_URL="http://consumer-identityhub.mvd-consumer-security.svc.cluster.local:7082"
-DATA_CONSUMER=$(jq -n --arg url "$CONSUMER_CONTROLPLANE_SERVICE_URL" --arg ihurl "$CONSUMER_IDENTITYHUB_URL" '{
-           "roles":[],
-           "serviceEndpoints":[
-             {
-                "type": "CredentialService",
-                "serviceEndpoint": "\($ihurl)/api/credentials/v1/participants/ZGlkOndlYjpjb25zdW1lci1pZGVudGl0eWh1Yi5tdmQtY29uc3VtZXItc2VjdXJpdHkuc3ZjLmNsdXN0ZXIubG9jYWwlM0E3MDgzOmNvbnN1bWVy",
-                "id": "consumer-credentialservice-1"
-             },
-             {
-                "type": "ProtocolEndpoint",
-                "serviceEndpoint": "\($url)/api/dsp",
-                "id": "consumer-dsp"
-             }
-           ],
-           "active": true,
-           "participantId": "did:web:consumer-identityhub.mvd-consumer-security.svc.cluster.local%3A7083:consumer",
-           "did": "did:web:consumer-identityhub.mvd-consumer-security.svc.cluster.local%3A7083:consumer",
-           "key":{
-               "keyId": "did:web:consumer-identityhub.mvd-consumer-security.svc.cluster.local%3A7083:consumer#key-1",
-               "privateKeyAlias": "did:web:consumer-identityhub.mvd-consumer-security.svc.cluster.local%3A7083:consumer#key-1",
-               "keyGeneratorParams":{
-                  "algorithm": "EC"
-               }
-           }
-       }')
-
-response=$(curl --location "http://127.0.0.1/consumer/cs/api/identity/v1alpha/participants/" \
---header 'Content-Type: application/json' \
---header "x-api-key: $API_KEY" \
---data "$DATA_CONSUMER")
-
-cid=$(echo "$response" | jq -r '.clientId')
-cs=$(echo "$response" | jq -r '.clientSecret')
-
-# Add the clientId and clientSecret to the vault
-curl -X POST --location 'http://127.0.0.1/consumer/cp/api/management/v3/secrets' \
---header 'Content-Type: application/json' \
---header "X-Api-Key: password" \
---data-raw '{
-    "@context": [
-        "https://w3id.org/edc/connector/management/v0.0.1"
-    ],
-    "@id": "'"$cid"'-sts-client-secret",
-    "value": "'"$cs"'"
-    }'
-
-# add provider participant
-echo
-echo
-echo "Create provider participant context in IdentityHub"
-
-PROVIDER_CONTROLPLANE_SERVICE_URL="http://provider-catalog-server-controlplane.mvd-provider-ctrl.svc.cluster.local:8082"
-PROVIDER_IDENTITYHUB_URL="http://provider-identityhub.mvd-provider-security.svc.cluster.local:7082"
-
-DATA_PROVIDER=$(jq -n --arg url "$PROVIDER_CONTROLPLANE_SERVICE_URL" --arg ihurl "$PROVIDER_IDENTITYHUB_URL" '{
-           "roles":[],
-           "serviceEndpoints":[
-             {
-                "type": "CredentialService",
-                "serviceEndpoint": "\($ihurl)/api/credentials/v1/participants/ZGlkOndlYjpwcm92aWRlci1pZGVudGl0eWh1Yi5tdmQtcHJvdmlkZXItc2VjdXJpdHkuc3ZjLmNsdXN0ZXIubG9jYWwlM0E3MDgzOnByb3ZpZGVy",
-                "id": "provider-credentialservice-1"
-             },
-             {
-                "type": "ProtocolEndpoint",
-                "serviceEndpoint": "\($url)/api/dsp",
-                "id": "provider-dsp"
-             }
-           ],
-           "active": true,
-           "participantId": "did:web:provider-identityhub.mvd-provider-security.svc.cluster.local%3A7083:provider",
-           "did": "did:web:provider-identityhub.mvd-provider-security.svc.cluster.local%3A7083:provider",
-           "key":{
-               "keyId": "did:web:provider-identityhub.mvd-provider-security.svc.cluster.local%3A7083:provider#key-1",
-               "privateKeyAlias": "did:web:provider-identityhub.mvd-provider-security.svc.cluster.local%3A7083:provider#key-1",
-               "keyGeneratorParams":{
-                  "algorithm": "EC"
-               }
-           }
-       }')
-
-curl --location "http://127.0.0.1/provider/cs/api/identity/v1alpha/participants/" \
---header 'Content-Type: application/json' \
---header "x-api-key: $API_KEY" \
---data "$DATA_PROVIDER"
+set -euo pipefail
 
 ###############################################
 # SEED ISSUER SERVICE
@@ -141,7 +23,7 @@ curl --location "http://127.0.0.1/provider/cs/api/identity/v1alpha/participants/
 echo
 echo
 echo "Create dataspace issuer"
-DATA_ISSUER=$(jq -n --arg pem "$PEM_ISSUER" '{
+DATA_ISSUER='{
             "roles":["admin"],
             "serviceEndpoints":[
               {
@@ -160,18 +42,57 @@ DATA_ISSUER=$(jq -n --arg pem "$PEM_ISSUER" '{
                   "algorithm": "EdDSA"
                 }
             }
-      }')
+      }'
 
-curl -s --location 'http://127.0.0.1/issuer/cs/api/identity/v1alpha/participants/' \
+curl -s --location 'http://vps.beardyinc.com/issuer/cs/api/identity/v1alpha/participants/' \
 --header 'Content-Type: application/json' \
 --data "$DATA_ISSUER"
 
 ## Seed participant data to the issuer service
-newman run \
-  --folder "Seed Issuer SQL" \
-  --env-var "ISSUER_ADMIN_URL=http://127.0.0.1/issuer/ad" \
-  --env-var "CONSUMER_ID=did:web:consumer-identityhub.mvd-consumer-security.svc.cluster.local%3A7083:consumer" \
-  --env-var "CONSUMER_NAME=MVD Consumer Participant" \
-  --env-var "PROVIDER_ID=did:web:provider-identityhub.mvd-provider-security.svc.cluster.local%3A7083:provider" \
-  --env-var "PROVIDER_NAME=MVD Provider Participant" \
-  ./deployment/postman/MVD.postman_collection.json
+# Create attestation definition
+echo
+echo
+echo "Create attestation definition"
+curl -s --location 'http://vps.beardyinc.com/issuer/ad/api/admin/v1alpha/participants/ZGlkOndlYjpkYXRhc3BhY2UtaXNzdWVyLXNlcnZpY2UubXZkLWlzc3Vlci5zdmMuY2x1c3Rlci5sb2NhbCUzQTEwMDE2Omlzc3Vlcg==/attestations' \
+--header 'Content-Type: application/json' \
+--header 'x-api-key: c3VwZXItdXNlcg==.c3VwZXItc2VjcmV0LWtleQo=' \
+--data '{
+    "attestationType": "database",
+    "configuration": {
+        "tableName": "membership_attestations",
+        "dataSourceName": "membership",
+        "idColumn": "holder_id"
+    },
+    "id": "db-attestation-def-1"
+}'
+
+# Create credential definition
+echo
+echo
+echo "Create credential definition"
+curl -s --location 'http://vps.beardyinc.com/issuer/ad/api/admin/v1alpha/participants/ZGlkOndlYjpkYXRhc3BhY2UtaXNzdWVyLXNlcnZpY2UubXZkLWlzc3Vlci5zdmMuY2x1c3Rlci5sb2NhbCUzQTEwMDE2Omlzc3Vlcg==/credentialdefinitions' \
+--header 'Content-Type: application/json' \
+--header 'x-api-key: c3VwZXItdXNlcg==.c3VwZXItc2VjcmV0LWtleQo=' \
+--data '{
+    "attestations": [
+        "db-attestation-def-1"
+    ],
+    "credentialType": "FoobarCredential",
+    "id": "demo-credential-def-2",
+    "jsonSchema": "{}",
+    "jsonSchemaUrl": "https://example.com/schema/demo-credential.json",
+    "mappings": [
+        {
+            "input": "membership_type",
+            "output": "credentialSubject.membershipType",
+            "required": "true"
+        },
+        {
+            "input": "membership_start_date",
+            "output": "credentialSubject.membershipStartDate",
+            "required": true
+        }
+    ],
+    "rules": [],
+    "format": "VC1_0_JWT"
+}'

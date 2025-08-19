@@ -23,6 +23,10 @@ import java.util.Map;
 public class DemoAttestationSource implements AttestationSource {
     @Override
     public Result<Map<String, Object>> execute(AttestationContext attestationContext) {
-        return Result.success(Map.of("onboarding", Map.of("signedDocuments", true), "participant", Map.of("name", "Alice")));
+        return Result.success(Map.of(
+                "onboarding", Map.of("signedDocuments", true),
+                "id", attestationContext.participantId(),
+                "level", "processing",
+                "participant", Map.of("name", attestationContext.participantId())));
     }
 }

@@ -70,6 +70,7 @@ resource "kubernetes_config_map" "issuer-initdb-config" {
         -- information from the database
         INSERT INTO membership_attestations (membership_type, holder_id) VALUES (1, 'did:web:consumer-identityhub.mvd-consumer-security.svc.cluster.local%3A7083:consumer');
         INSERT INTO membership_attestations (membership_type, holder_id) VALUES (2, 'did:web:provider-identityhub.mvd-provider-security.svc.cluster.local%3A7083:provider');
+        INSERT INTO membership_attestations (membership_type, holder_id) VALUES (1, 'did:web:identityhub.foobar.svc.cluster.local%3A7083:foobar');
       EOT
   }
 }
